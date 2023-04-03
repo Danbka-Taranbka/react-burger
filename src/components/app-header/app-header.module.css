@@ -1,0 +1,78 @@
+.appLogo {
+  margin: 0;
+  padding: 0;
+  height: 40vmin;
+  pointer-events: none;
+  margin-right: 288.85px;
+  margin-left: 112px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .appLogo {
+    animation: AppLogoSpin infinite 20s linear;
+  }
+}
+
+.appHeader {
+  margin: 0;
+  padding: 0;
+  max-width: 1920px;
+  background-color: #282c34;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+@keyframes AppLogoSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.link {
+  margin: 0;
+  padding: 0;
+  color: #8585AD;
+  font-family: 'JetBrains Mono', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-decoration: none;
+  
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+  transition: opacity .2s ease-in-out;
+}
+
+.link:hover {
+  opacity: 0.6;
+}
+
+.linkActive {
+  composes: link;
+  color: #F2F2F3;
+}
+
+.menuPunct {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 16px 20px;
+  gap: 8px;
+}
+
+.menuPunct:nth-of-type(2) {
+  margin-right: 112px;
+}
+
+.menuPunct:last-of-type{
+  margin-left: 288.85px;
+}
