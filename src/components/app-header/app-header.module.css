@@ -16,6 +16,7 @@
 .appHeader {
   margin: 0;
   padding: 0;
+  margin-top: 40px;
   max-width: 1920px;
   background-color: #282c34;
   display: flex;
@@ -23,6 +24,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  
 }
 
 @keyframes AppLogoSpin {
@@ -61,7 +63,7 @@
   color: #F2F2F3;
 }
 
-.menuPunct {
+.menuItem {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -69,10 +71,10 @@
   gap: 8px;
 }
 
-.menuPunct:nth-of-type(2) {
+.menuItem:nth-of-type(2) {
   margin-right: 112px;
 }
 
-.menuPunct:last-of-type{
+.menuItem:last-of-type{
   margin-left: 288.85px;
 }

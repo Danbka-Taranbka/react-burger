@@ -1,5 +1,11 @@
 .app {
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 2000px;
 }
 
 .App-link {

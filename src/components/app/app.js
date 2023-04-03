@@ -1,13 +1,15 @@
 import React from "react";
 import appStyles from './app.module.css';
-import AppHeader from '../app-header/app-header.js'
+import AppHeader from '../app-header/app-header.js';
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 
 class App extends React.Component {
   render() {
     return(
-      <>
-      <AppHeader className={appStyles.app}/>
-      </>
+      <div className={appStyles.app}>
+      <AppHeader />
+      <BurgerIngredients />
+      </div>
     )
   } 
 }
