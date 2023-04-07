@@ -20,6 +20,5 @@
   flex-direction: column;
   list-style: none;
   overflow-y: scroll;
-  width: 100%;
-  max-width: 600px;
+  width: 600px;
 }

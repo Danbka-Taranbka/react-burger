@@ -8,9 +8,9 @@ import Nav from '../nav/nav.js';
 class AppHeader extends React.Component {
   render() {
     return (
-      <header className={styles.appHeader}>
+      <header className={`m-10 ${styles.appHeader}`}>
         <Nav/>
-        <Logo />
+        <Logo/>
       </header>
     )
   }

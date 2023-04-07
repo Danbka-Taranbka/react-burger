@@ -1,15 +1,19 @@
 import React from "react";
 import appStyles from './app.module.css';
 import data from "../../utils/data.js";
+import {constructorData} from "../../utils/data.js";
 import AppHeader from '../app-header/app-header.js';
-import Main from "../main/main.js";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import BurgerConstructor from "../burger-constructor/burger-constructor";
 
 class App extends React.Component {
   render() {
     return(
       <div className={`${appStyles.app}`}>
       <AppHeader />
-      <Main data={data}/>
+
+      <BurgerIngredients data={data}/>
+      <BurgerConstructor data={constructorData}/>
       </div>
     )
   } 
