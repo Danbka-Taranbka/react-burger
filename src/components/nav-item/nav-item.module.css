@@ -1,10 +1,6 @@
 .navItem {
   list-style: none;
-  display: flex;
-  flex-direction: row;
-  align-content: center;
   position: relative;
-  cursor: pointer;
 }
 
 .navItem:nth-of-type(2) {
@@ -12,12 +8,23 @@
 }
 
 .navItem:nth-of-type(3) {
-  left: 882px;
+  left: 710px;
+}
+
+.link {
+  cursor: pointer;
+  transition: opacity .2s ease-in-out;
+  text-decoration: none;
+}
+
+.link:hover {
+  opacity: 0.6;
 }
 
 .text {
-  display: flex;
   flex-direction: row;
+  display: flex;
   align-items: center;
   gap: 8px;
+  color: #F2F2F3;
 }

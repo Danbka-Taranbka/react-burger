@@ -1,6 +1,7 @@
 .nav {
   display: flex;
   flex-direction: row;
+  left: 245px;
   position: absolute;
   width: 1280px;
 }

@@ -1,24 +1,24 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import styles from "./burger-constructor.module.css";
-import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button, CurrencyIcon, ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import {ingredientPropTypes} from "../../utils/config.js";
 
 class BurgerConstructor extends React.Component {
 
   renderIngredient(ingredient) {
     return (
-      <li key={ingredient._id}>
-        <ConstructorElement thumbnail={ingredient.image} text={`${ingredient.name} (верх)`} price={ingredient.price}/>
+      <li className={styles.listItem} key={ingredient._id}>
+        <DragIcon type="primary"/><ConstructorElement thumbnail={ingredient.image} text={`${ingredient.name}`} price={ingredient.price}/>
       </li>
     );
   }
 
   findTotal(bun, ingredients) {
     let sum = bun.price * 2;
-    ingredients.map(element => sum += element.price);
-    return sum;
+    const total = ingredients.reduce((accumulator, current) => accumulator + current.price,
+      sum);
+    return total;
   }
 
   render() {
@@ -26,12 +26,12 @@ class BurgerConstructor extends React.Component {
     const ingredients = this.props.data.filter(item => item.type !== 'bun');
 
     return (
-      <div className={`mt-20 ml-10 ${styles.constructor}`}>
-        <ul className={`custom-scroll ${styles.list} p-5 pr-4 pl-12`}>
-          <li key={'bun-top'}><ConstructorElement thumbnail={bun.image} text={`${bun.name} (верх)`} price={bun.price} isLocked={true} type="top"/></li>
+      <div className={`mt-20 ml-10 pt-5 ${styles.constructor}`}>
+        <li className={`mr-2 ${styles.listItem}`} key={'bun-top'}><ConstructorElement thumbnail={bun.image} text={`${bun.name} (верх)`} price={bun.price} isLocked={true} type="top"/></li>
+        <ul className={`custom-scroll ${styles.list}`}>
           {ingredients.map(element => this.renderIngredient(element))}
-          <li key={'bun-bottom'}><ConstructorElement thumbnail={bun.image} text={`${bun.name} (низ)`} price={bun.price} isLocked={true} type="bottom"/></li>
         </ul>
+        <li className={`mr-2 ${styles.listItem}`} key={'bun-bottom'}><ConstructorElement thumbnail={bun.image} text={`${bun.name} (низ)`} price={bun.price} isLocked={true} type="bottom"/></li>
         <div className={`${styles.info} mr-4`}>
           <p className="text text_type_digits-medium mr-2">{this.findTotal(bun, ingredients)}</p>
           <CurrencyIcon type="primary"/>
@@ -45,7 +45,7 @@ class BurgerConstructor extends React.Component {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
+  data: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
 }
 
 export default BurgerConstructor;

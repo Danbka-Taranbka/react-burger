@@ -1,8 +1,9 @@
 .constructor {
   display: flex;
   flex-direction: column;
-  width: 568px;
+  width: 600px;
   height: 780px;
+  gap: 16px;
 }
 
 .info {
@@ -17,10 +18,22 @@
 
 .list {
   margin: 0;
+  padding: 0;
+  width: 100%;
   gap: 16px;
   display: flex;
   flex-direction: column;
   max-height: 696px;
   overflow-y: scroll;
   list-style: none;
+}
+
+.listItem {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 13.5px;
+  align-items: center;
 }

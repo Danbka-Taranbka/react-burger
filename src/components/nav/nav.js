@@ -7,9 +7,9 @@ class Nav extends React.Component {
   render() {
     return (
       <nav className={styles.nav}>
-        <NavItem text={`text text_type_main-default`}><BurgerIcon type="primary"/>Конструктор</NavItem>
-        <NavItem text={`text text_type_main-default text_color_inactive`}><ListIcon type="secondary"/>Лента заказов</NavItem>
-        <NavItem text={`text text_type_main-default text_color_inactive`}><ProfileIcon type="secondary"/>Профиль</NavItem>
+        <NavItem link='#' text={`text text_type_main-default`} icon={<BurgerIcon type="primary"/>}>Конструктор</NavItem>
+        <NavItem link='#' text={`text text_type_main-default text_color_inactive`} icon={<ListIcon type="secondary"/>}>Лента заказов</NavItem>
+        <NavItem link='#' text={`text text_type_main-default text_color_inactive`} icon={<ProfileIcon type="secondary"/>}>Личный кабинет</NavItem>
       </nav>
     )
   }
