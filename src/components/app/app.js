@@ -6,17 +6,16 @@ import AppHeader from '../app-header/app-header.js';
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 
-class App extends React.Component {
-  render() {
-    return(
-      <div className={`${appStyles.app}`}>
-      <AppHeader />
 
-      <BurgerIngredients data={data}/>
-      <BurgerConstructor data={constructorData}/>
-      </div>
-    )
-  } 
+function App () {
+  return(
+    <div className={`${appStyles.app}`}>
+    <AppHeader />
+
+    <BurgerIngredients data={data}/>
+    <BurgerConstructor data={constructorData}/>
+    </div>
+  )
 }
 
 export default App;

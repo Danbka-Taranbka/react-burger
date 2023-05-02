@@ -1,6 +1,6 @@
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./tabs.module.css";
+import styles from "./tab-menu.module.css";
 
 const TabMenu = () => {
   const [current, setCurrent] = React.useState('buns')

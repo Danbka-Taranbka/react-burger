@@ -2,19 +2,18 @@ import React from "react";
 import styles from "./nav-item.module.css";
 import PropTypes from 'prop-types';
 
-class NavItem extends React.Component {
-  render() {
-    return (
-      <li className={styles.navItem}>
-        <a href={this.props.link} className={`${styles.link}`}>
-          <div className={styles.text}>
-            {this.props.icon}
-            <p className={`${this.props.text}`}>{this.props.children}</p>
-          </div>
-        </a>
-      </li>
-    )
-  }
+
+function NavItem (props) {
+  return (
+    <li className={styles.navItem}>
+      <a href={props.link} className={`${styles.link}`}>
+        <div className={styles.text}>
+          {props.icon}
+          <p className={`${props.text}`}>{props.children}</p>
+        </div>
+      </a>
+    </li>
+  )
 }
 
 NavItem.propTypes = {

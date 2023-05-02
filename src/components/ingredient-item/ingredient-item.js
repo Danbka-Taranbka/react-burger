@@ -3,8 +3,10 @@ import styles from './ingredient-item.module.css';
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 
-class IngredientItem extends React.Component {
-  renderCounter = (count) => {
+
+function IngredientItem (props) {
+
+  const renderCounter = (count) => {
     const renderSize = (count) => {
       let size = (count < 10)
       ? 'default'
@@ -16,17 +18,16 @@ class IngredientItem extends React.Component {
     }
   };
 
-  render() {
-    const data = this.props.data;
-    return(
-      <div className={styles.ingredient} id={data._id}>
-        {this.renderCounter(this.props.count)}
-        <img className={styles.image} src={data.image} alt={data.name}/>
-        <p className={`text text_type_digits-default ${styles.price}`}>{data.price} <CurrencyIcon/></p>
-        <h3 className={`text text_type_main-default ${styles.name}`}>{data.name}</h3>
-      </div>
-    )
-  }
+  const data = props.data;
+
+  return(
+    <div className={styles.ingredient} id={data._id}>
+      {renderCounter(props.count)}
+      <img className={styles.image} src={data.image} alt={data.name}/>
+      <p className={`text text_type_digits-default ${styles.price}`}>{data.price} <CurrencyIcon/></p>
+      <h3 className={`text text_type_main-default ${styles.name}`}>{data.name}</h3>
+    </div>
+  )
 }
 
 IngredientItem.propTypes = {
