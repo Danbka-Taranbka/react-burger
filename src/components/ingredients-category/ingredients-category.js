@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './ingredients-category.module.css';
 import IngredientItem from '../ingredient-item/ingredient-item';
 

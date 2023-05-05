@@ -10,7 +10,8 @@ function BurgerConstructor (props) {
   const renderIngredient = (ingredient) =>  {
     return (
       <li className={styles.listItem} key={ingredient._id}>
-        <DragIcon type="primary"/><ConstructorElement thumbnail={ingredient.image} text={`${ingredient.name}`} price={ingredient.price}/>
+        <DragIcon type="primary"/>
+        <ConstructorElement thumbnail={ingredient.image} text={`${ingredient.name}`} price={ingredient.price}/>
       </li>
     );
   }
@@ -26,11 +27,15 @@ function BurgerConstructor (props) {
   const ingredients = props.data.filter(item => item.type !== 'bun');
   return (
     <div className={`mt-20 ml-10 pt-5 ${styles.constructor}`}>
-      <li className={`mr-2 ${styles.listItem}`} key={'bun-top'}><ConstructorElement thumbnail={bun.image} text={`${bun.name} (верх)`} price={bun.price} isLocked={true} type="top"/></li>
+      <li className={`mr-2 ${styles.listItem}`} key={'bun-top'}>
+        <ConstructorElement thumbnail={bun.image} text={`${bun.name} (верх)`} price={bun.price} isLocked={true} type="top"/>
+      </li>
       <ul className={`custom-scroll ${styles.list}`}>
         {ingredients.map(element => renderIngredient(element))}
       </ul>
-      <li className={`mr-2 ${styles.listItem}`} key={'bun-bottom'}><ConstructorElement thumbnail={bun.image} text={`${bun.name} (низ)`} price={bun.price} isLocked={true} type="bottom"/></li>
+      <li className={`mr-2 ${styles.listItem}`} key={'bun-bottom'}>
+        <ConstructorElement thumbnail={bun.image} text={`${bun.name} (низ)`} price={bun.price} isLocked={true} type="bottom"/>
+        </li>
       <div className={`${styles.info} mr-4`}>
         <p className="text text_type_digits-medium mr-2">{findTotal(bun, ingredients)}</p>
         <CurrencyIcon type="primary"/>

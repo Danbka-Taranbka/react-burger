@@ -1,0 +1,22 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  width: 100%;
+  text-align: start;
+}
+
+.details {
+  width: 520px;
+  display: flex;
+  flex-direction: row;
+}
+
+.info {
+  width: 120px;
+  gap: 8px;
+  text-align: center;
+}
