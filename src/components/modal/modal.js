@@ -4,7 +4,7 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { createPortal } from "react-dom";
 
-export default function Modal (children, onClose) {
+export default function Modal ({children, onClose}) {
   const modalContainer = useRef();
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function Modal (children, onClose) {
 
   return createPortal(
     <ModalOverlay>
-      <div ref={modalContainer} className={`p-30 pr-25 pl-25 ${styles.modal}`}>
+      <div ref={modalContainer} className={`p-10 ${styles.modal}`}>
         <div onClick={onClose} className={styles.close_icon}>
           <CloseIcon type="primary"/>
         </div>

@@ -27,7 +27,7 @@ function App () {
     setState({...state, isLoading: true, hasError: false});
     api
     .getIngredientsList()
-    .then(( {data} ) => setState({...state,  data, isLoading: false }))
+    .then(( {data} ) => setState({...state, data, isLoading: false }))
     .catch ((e) => {
       setState({...state, hasError: true, isLoading: true})
     });
@@ -41,7 +41,6 @@ function App () {
     setIngredient(ingred);
     setKind('ingredient');
     togglePopup();
-    console.log('aaa');
   };
 
   const openOrderDetails = () => {
@@ -52,8 +51,8 @@ function App () {
   return(
     <div className={`${appStyles.app}`}>
     <AppHeader />
-    <BurgerIngredients data={state.data}/>
-    <BurgerConstructor data={constructorData} onOpen={openIngredient}/>
+   {state.data.length && <BurgerIngredients data={state.data} openIngredient={openIngredient}/>}
+    {state.data.length && <BurgerConstructor data={state.data} openIngredient={openIngredient} confirmOrder={openOrderDetails}/>}
     {isOpen && (
       <Modal onClose={togglePopup}>
       {(kind === 'order') ? (<OrderDetails orderId={'034536'}/>):

@@ -5,15 +5,15 @@ import TabMenu from '../tab-menu/tab-menu';
 import {ingredientPropTypes} from "../../utils/config.js";
 
 
-function BurgerIngredients (props) {
+function BurgerIngredients ({data, openIngredient}) {
   return (
     <div className={styles.burgerIngredients}>
       <h2 className={`text text_type_main-large ${styles.title}`}>Соберите бургер</h2>
       <TabMenu/>
       <ul className={`custom-scroll ${styles.list}`}>
-        <li><IngredientsCategory title='Булки' data={props.data} type='bun'/></li>
-        <li><IngredientsCategory title='Соусы' data={props.data} type='sauce'/></li>
-        <li><IngredientsCategory title='Начинки' data={props.data} type='main'/></li>
+        <li><IngredientsCategory title='Булки' data={data} type='bun' openIngredient={openIngredient}/></li>
+        <li><IngredientsCategory title='Соусы' data={data} type='sauce' openIngredient={openIngredient}/></li>
+        <li><IngredientsCategory title='Начинки' data={data} type='main' openIngredient={openIngredient}/></li>
       </ul>
     </div>
   )
