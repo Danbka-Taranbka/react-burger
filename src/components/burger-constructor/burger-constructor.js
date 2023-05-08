@@ -3,17 +3,16 @@ import styles from "./burger-constructor.module.css";
 import { Button, CurrencyIcon, ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import {ingredientPropTypes} from "../../utils/config.js";
 
+function IngredientRender (ingredient) {
+  return (
+    <li className={styles.listItem} key={ingredient._id}>
+      <DragIcon type="primary"/>
+      <ConstructorElement thumbnail={ingredient.image} text={`${ingredient.name}`} price={ingredient.price} extraClass={styles.con}/>
+    </li>
+  );
+}
 
-function BurgerConstructor ({data, openIngredient, confirmOrder}) {
-
-  const renderIngredient = (ingredient) =>  {
-    return (
-      <li className={styles.listItem} key={ingredient._id} onClick={() => {openIngredient(ingredient)}}>
-        <DragIcon type="primary"/>
-        <ConstructorElement thumbnail={ingredient.image} text={`${ingredient.name}`} price={ingredient.price} extraClass={styles.con}/>
-      </li>
-    );
-  }
+function BurgerConstructor ({data, confirmOrder}) {
 
   const findTotal = (bun, ingredients) => {
     let sum = bun.price * 2;
@@ -30,7 +29,7 @@ function BurgerConstructor ({data, openIngredient, confirmOrder}) {
         <ConstructorElement thumbnail={bun.image} text={`${bun.name} (верх)`} price={bun.price} isLocked={true} type="top"/>
       </li>
       <ul className={`custom-scroll ${styles.list}`}>
-        {ingredients.map(element => renderIngredient(element))}
+        {ingredients.map(element => IngredientRender(element))}
       </ul>
       <li className={`mr-2 ${styles.listItem}`} key={'bun-bottom'}>
         <ConstructorElement thumbnail={bun.image} text={`${bun.name} (низ)`} price={bun.price} isLocked={true} type="bottom"/>
@@ -38,7 +37,7 @@ function BurgerConstructor ({data, openIngredient, confirmOrder}) {
       <div className={`${styles.info} mr-4`}>
         <p className="text text_type_digits-medium mr-2">{findTotal(bun, ingredients)}</p>
         <CurrencyIcon type="primary"/>
-        <Button htmlType="button" type="primary" size="small" extraClass="p-10 pt-5 pb-5 ml-10 text text_type_main-small" onClick={() => {confirmOrder()}}>
+        <Button htmlType="button" type="primary" size="small" extraClass="p-10 pt-5 pb-5 ml-10 text text_type_main-small" onClick={confirmOrder}>
           Оформить заказ
         </Button>
       </div>

@@ -18,9 +18,9 @@ function App () {
     data: [],
   });
 
-  const [isOpen, setOpen] = useState(false);
+  const [isOpenIngredientModal, setIngredientModal] = useState(false);
+  const [isOpenOrderModal, setOrderModal] = useState(false);
   const [ingredient, setIngredient] = useState(null);
-  const [kind, setKind] = useState(null);
 
   useEffect(() => {
     setState({...state, isLoading: true, hasError: false});
@@ -32,32 +32,30 @@ function App () {
     });
   }, []);
 
-  const togglePopup = () => {
-    setOpen(!isOpen);
+  const handleCloseIngredientModal = () => {
+    setIngredientModal(false);
+  };
+
+  const handleCloseOrderModal = () => {
+    setOrderModal(false);
   };
 
   const openIngredient = (ingred) => {
     setIngredient(ingred);
-    setKind('ingredient');
-    togglePopup();
+    setIngredientModal(true);
   };
 
   const openOrderDetails = () => {
-    setKind('order');
-    togglePopup();
+    setOrderModal(true);
   };
 
   return(
     <div className={`${appStyles.app}`}>
     <AppHeader />
-   {state.data.length && <BurgerIngredients data={state.data} openIngredient={openIngredient}/>}
-    {state.data.length && <BurgerConstructor data={state.data} openIngredient={openIngredient} confirmOrder={openOrderDetails}/>}
-    {isOpen && (
-      <Modal onClose={togglePopup}>
-      {(kind === 'order') ? (<OrderDetails orderId={'034536'}/>):
-        (<IngredientDetails data={ingredient}/>)}
-      </Modal>
-    )}
+   {state.data.length && <><BurgerIngredients data={state.data} openIngredient={openIngredient}/>
+   <BurgerConstructor data={state.data} confirmOrder={openOrderDetails}/></>}
+    {isOpenIngredientModal && <Modal onClose={handleCloseIngredientModal}><IngredientDetails data={ingredient}/></Modal>}
+    {isOpenOrderModal && <Modal onClose={handleCloseOrderModal}><OrderDetails orderId={'034536'}/></Modal>}
     </div>
   )
 }

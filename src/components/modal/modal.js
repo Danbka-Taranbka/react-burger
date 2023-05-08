@@ -15,24 +15,22 @@ export default function Modal ({children, onClose}) {
       }
     };
 
-    const handleOverlayClose = (e) => {
+    /*const handleOverlayClose = (e) => {
       if (!modalContainer.current.contains(e.target)) {
         onClose();
       }
-    };
+    };*/
 
     document.addEventListener("keydown", handleEscClose);
-    document.addEventListener("mousedown", handleOverlayClose);
 
     return () => {
       document.removeEventListener("keydown", handleEscClose);
-      document.removeEventListener("mousedown", handleOverlayClose);
     };
 
   }, []);
 
   return createPortal(
-    <ModalOverlay>
+    <ModalOverlay onClose={onClose}>
       <div ref={modalContainer} className={`p-10 ${styles.modal}`}>
         <div onClick={onClose} className={styles.close_icon}>
           <CloseIcon type="primary"/>
@@ -46,4 +44,5 @@ export default function Modal ({children, onClose}) {
 
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
 };
