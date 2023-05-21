@@ -1,0 +1,43 @@
+.constructor {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: 780px;
+  gap: 16px;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  max-width: 568px;
+  height: 65px;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  max-height: 696px;
+  overflow-y: scroll;
+  list-style: none;
+}
+
+.listItem {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 13.5px;
+  align-items: center;
+}
+
+.constructorElement {
+  cursor: pointer;
+}

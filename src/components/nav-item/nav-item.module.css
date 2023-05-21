@@ -1,0 +1,30 @@
+.navItem {
+  list-style: none;
+  position: relative;
+}
+
+.navItem:nth-of-type(2) {
+  left: 50px;
+}
+
+.navItem:nth-of-type(3) {
+  left: 710px;
+}
+
+.link {
+  cursor: pointer;
+  transition: opacity .2s ease-in-out;
+  text-decoration: none;
+}
+
+.link:hover {
+  opacity: 0.6;
+}
+
+.text {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #F2F2F3;
+}
