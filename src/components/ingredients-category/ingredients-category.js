@@ -3,17 +3,24 @@ import IngredientItem from '../ingredient-item/ingredient-item';
 import { IngredientsContext } from '../../utils/ingredientsContext';
 import { useContext } from 'react';
 
-
+const isBun = (current) => {
+  if (current.type === 'bun') {
+    return (current.price * 2);
+  }  else {
+    return current.price;
+  }
+};
 
 function IngredientsCategory ({data, title, type, openIngredient}) {
-  const [constructorData, setConstructorData] = useContext(IngredientsContext);
+  const [constructorState, dispatchConstructorState] = useContext(IngredientsContext);
   
   function handleIngredientClick (ingredientData) {
-    const hasBun = constructorData.find(element => element.type === 'bun');
+    const hasBun = constructorState.constructorData.find(element => element.type === 'bun');
     if (hasBun !== undefined && ingredientData.type === 'bun') {
       return;
     } else {
-      setConstructorData([...constructorData, ingredientData]); 
+      dispatchConstructorState({type: "add", newIngredient: ingredientData, isBun: isBun});
+      console.log(constructorState);
     }   
   }
   const renderItem = (ingredientData) => {

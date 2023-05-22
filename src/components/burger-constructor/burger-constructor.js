@@ -16,23 +16,15 @@ function IngredientRender (ingredient) {
 
 function BurgerConstructor ({confirmOrder}) {
    
-  const [constructorData] = useContext(IngredientsContext);
+  const [constructorState] = useContext(IngredientsContext);
 
-  const findTotal = (data) => {
-    const sum = data.reduce(function (accumulator, current)  {if (current.type === 'bun') 
-    {return accumulator + (current.price * 2)
-    }  else {
-      return accumulator + current.price
-  }
-}, 0);
-    return sum;
-  }
 
-  const bun = constructorData.find(item => item.type === 'bun');
-  const ingredients = constructorData.filter(item => item.type !== 'bun');
+
+  const bun = constructorState.constructorData.find(item => item.type === 'bun');
+  const ingredients = constructorState.constructorData.filter(item => item.type !== 'bun');
   return (
     <div className={`mt-20 ml-10 pt-5 ${styles.constructor}`}>
-      {(constructorData.length > 0) && <>{bun && <li className={`mr-2 ${styles.listItem}`} key={'bun-top'}>
+      {bun && <li className={`mr-2 ${styles.listItem}`} key={'bun-top'}>
         <ConstructorElement thumbnail={bun.image} text={`${bun.name} (верх)`} price={bun.price} isLocked={true} type="top"/>
       </li>}
       <ul className={`custom-scroll ${styles.list}`}>
@@ -40,9 +32,9 @@ function BurgerConstructor ({confirmOrder}) {
       </ul>
       {bun && <li className={`mr-2 ${styles.listItem}`} key={'bun-bottom'}>
         <ConstructorElement thumbnail={bun.image} text={`${bun.name} (низ)`} price={bun.price} isLocked={true} type="bottom"/>
-      </li>}</>}
+      </li>}
       <div className={`${styles.info} mr-4`}>
-        {constructorData.length > 0 && <p className="text text_type_digits-medium mr-2">{findTotal(constructorData)}</p>}
+        {<p className="text text_type_digits-medium mr-2">{constructorState.totalPrice}</p>}
         <CurrencyIcon type="primary"/>
         <Button htmlType="button" type="primary" size="small" extraClass="p-10 pt-5 pb-5 ml-10 text text_type_main-small" onClick={confirmOrder}>
           Оформить заказ

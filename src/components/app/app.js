@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useReducer } from "react";
 import appStyles from './app.module.css';
 
 import AppHeader from '../app-header/app-header.js';
@@ -12,14 +12,31 @@ import {IngredientsContext} from "../../utils/ingredientsContext.js";
 
 const api = new Api();
 
+const initialConstructorState = {
+  constructorData: [],
+  totalPrice: 0
+}
+
+function constructorReducer (constructorState, action) {
+  switch (action.type) {
+    case "add": 
+    return {constructorData: [...constructorState.constructorData, action.newIngredient],
+    totalPrice: constructorState.totalPrice + action.isBun(action.newIngredient)};
+    case "remove": 
+    return console.log('Ingredient has been removed');
+    default: 
+    throw new Error(`Wrong type of action: ${action}`)
+  }
+}
+
 function App () {
   const [state, setState] = useState({
     isLoading: false,
     hasError: false,
     data: [],
   });
-  const constructorState = useState([]
-  );
+
+  const [constructorState, dispatchConstructorState] = useReducer(constructorReducer, initialConstructorState);
 
   const [isOpenIngredientModal, setIngredientModal] = useState(false);
   const [isOpenOrderModal, setOrderModal] = useState(false);
@@ -55,8 +72,8 @@ function App () {
   return(
     <div className={`${appStyles.app}`}>
     <AppHeader />
-    <IngredientsContext.Provider value={constructorState}>
-   {state.data.length && <><BurgerIngredients data={state.data} openIngredient={openIngredient}/>
+    <IngredientsContext.Provider value={[constructorState, dispatchConstructorState]}>
+   {state.data.length > 0 && <><BurgerIngredients data={state.data} openIngredient={openIngredient}/>
    <BurgerConstructor confirmOrder={openOrderDetails}/></>}
    </IngredientsContext.Provider>
     {isOpenIngredientModal && <Modal onClose={handleCloseIngredientModal}><IngredientDetails data={ingredient}/></Modal>}
