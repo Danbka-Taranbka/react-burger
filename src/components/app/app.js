@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import appStyles from './app.module.css';
 
 import AppHeader from '../app-header/app-header.js';
@@ -8,6 +8,7 @@ import Api from "../../api/api";
 import Modal from "../modal/modal";
 import OrderDetails from "../../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import {IngredientsContext} from "../../utils/ingredientsContext.js";
 
 const api = new Api();
 
@@ -17,6 +18,8 @@ function App () {
     hasError: false,
     data: [],
   });
+  const constructorState = useState([]
+  );
 
   const [isOpenIngredientModal, setIngredientModal] = useState(false);
   const [isOpenOrderModal, setOrderModal] = useState(false);
@@ -52,8 +55,10 @@ function App () {
   return(
     <div className={`${appStyles.app}`}>
     <AppHeader />
+    <IngredientsContext.Provider value={constructorState}>
    {state.data.length && <><BurgerIngredients data={state.data} openIngredient={openIngredient}/>
-   <BurgerConstructor data={state.data} confirmOrder={openOrderDetails}/></>}
+   <BurgerConstructor confirmOrder={openOrderDetails}/></>}
+   </IngredientsContext.Provider>
     {isOpenIngredientModal && <Modal onClose={handleCloseIngredientModal}><IngredientDetails data={ingredient}/></Modal>}
     {isOpenOrderModal && <Modal onClose={handleCloseOrderModal}><OrderDetails orderId={'034536'}/></Modal>}
     </div>
