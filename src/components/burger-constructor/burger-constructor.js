@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { useContext } from 'react';
 import styles from "./burger-constructor.module.css";
 import { Button, CurrencyIcon, ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import {ingredientPropTypes} from "../../utils/config.js";
-import { IngredientsContext } from '../../utils/ingredientsContext';
+import {ConstructorContext} from '../../utils/constructorContext.js';
 
+//Функция рендера ингредиента в конструкторе
 function IngredientRender (ingredient) {
   return (
     <li className={styles.listItem} key={ingredient._id}>
@@ -16,12 +16,12 @@ function IngredientRender (ingredient) {
 
 function BurgerConstructor ({confirmOrder}) {
    
-  const [constructorState] = useContext(IngredientsContext);
+  const [constructorState] = useContext(ConstructorContext);
 
-
-
+  //Разбиваем список ингредиентов на булки и НЕбулки для упрощения работы с данными
   const bun = constructorState.constructorData.find(item => item.type === 'bun');
   const ingredients = constructorState.constructorData.filter(item => item.type !== 'bun');
+
   return (
     <div className={`mt-20 ml-10 pt-5 ${styles.constructor}`}>
       {bun && <li className={`mr-2 ${styles.listItem}`} key={'bun-top'}>
@@ -36,7 +36,7 @@ function BurgerConstructor ({confirmOrder}) {
       <div className={`${styles.info} mr-4`}>
         {<p className="text text_type_digits-medium mr-2">{constructorState.totalPrice}</p>}
         <CurrencyIcon type="primary"/>
-        <Button htmlType="button" type="primary" size="small" extraClass="p-10 pt-5 pb-5 ml-10 text text_type_main-small" onClick={confirmOrder}>
+        <Button htmlType="button" type="primary" size="small" extraClass="p-10 pt-5 pb-5 ml-10 text text_type_main-small" onClick={() => {confirmOrder()}}>
           Оформить заказ
         </Button>
       </div>
@@ -45,7 +45,7 @@ function BurgerConstructor ({confirmOrder}) {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropTypes.isRequired),
+  confirmOrder: PropTypes.func.isRequired,
 }
 
 export default BurgerConstructor;

@@ -1,7 +1,9 @@
 import styles from './ingredients-category.module.css';
 import IngredientItem from '../ingredient-item/ingredient-item';
 import { IngredientsContext } from '../../utils/ingredientsContext';
+import {ConstructorContext} from '../../utils/constructorContext.js';
 import { useContext } from 'react';
+import PropTypes from 'prop-types';
 
 const isBun = (current) => {
   if (current.type === 'bun') {
@@ -11,23 +13,28 @@ const isBun = (current) => {
   }
 };
 
-function IngredientsCategory ({data, title, type, openIngredient}) {
-  const [constructorState, dispatchConstructorState] = useContext(IngredientsContext);
+function IngredientsCategory ({title, type, openIngredient}) {
+  const [constructorState, dispatchConstructorState] = useContext(ConstructorContext);
+  const [ingredientsData] = useContext(IngredientsContext);
   
-  function handleIngredientClick (ingredientData) {
+  function handleIngredientClick (data) {
+    //Открытие модального окна ингредиента
+    //openIngredient(data); 
+    
+    //Добавление ингредиента в конструктор по клику, в дальнейшем будет заменено на перетаскивание
     const hasBun = constructorState.constructorData.find(element => element.type === 'bun');
-    if (hasBun !== undefined && ingredientData.type === 'bun') {
+    //"Убираем" возможность добавления второй булки в конструктор, нельзя есть слишком много мучного!
+    if (hasBun !== undefined && data.type === 'bun') {
       return;
     } else {
-      dispatchConstructorState({type: "add", newIngredient: ingredientData, isBun: isBun});
-      console.log(constructorState);
-    }   
+      dispatchConstructorState({type: "add", newIngredient: data, isBun: isBun});
+    }
   }
-  const renderItem = (ingredientData) => {
-    return <li key={ingredientData._id} onClick={() => {handleIngredientClick(ingredientData)}}><IngredientItem data={ingredientData}/></li>
+  const renderItem = (data) => {
+    return <li key={data._id} onClick={() => {handleIngredientClick(data)}}><IngredientItem data={data}/></li>
   }
-
-  const typeData = data.filter(element => element.type === type);
+  
+  const typeData = ingredientsData.filter(element => element.type === type);
 
   return(
     <div className={`${styles.ingredientsBlock} mt-10`}>
@@ -38,5 +45,12 @@ function IngredientsCategory ({data, title, type, openIngredient}) {
     </div>
   )
 }
+
+IngredientsCategory.propTypes = {
+  title: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  openIngredient: PropTypes.func.isRequired,
+}
+
 
 export default IngredientsCategory;

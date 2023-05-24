@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 function IngredientItem ({data, count}) {
 
+  //Рендер счётчика и его размера
   const renderCounter = (count) => {
     const renderSize = (count) => {
       let size = (count < 10)

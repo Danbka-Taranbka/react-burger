@@ -1,5 +1,5 @@
 import styles from './order-details.module.css';
-import accept from '../images/accept-icon.png';
+import accept from '../../images/accept-icon.png';
 import PropTypes from 'prop-types';
 
 export default function OrderDetails ({orderId}) {
@@ -15,5 +15,5 @@ export default function OrderDetails ({orderId}) {
 }
 
 OrderDetails.propTypes = {
-  orderId: PropTypes.string.isRequired
+  orderId: PropTypes.number.isRequired
 };
