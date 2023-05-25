@@ -65,11 +65,6 @@ function App () {
     api
       .getOrderId(orderList)
       .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .then((res) => {
         setOrderId(res.order.number);
         setState({...state, isLoading: false, hasError: false});
       })
