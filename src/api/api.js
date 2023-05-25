@@ -12,16 +12,16 @@
     return Promise.reject(`Ошибка: ${res.status}`);
   };
 
-  getData (url, options) {
-    return fetch(url, options).then(this.checkResponse);
+  getData (endPoint, options) {
+    return fetch(`${this.baseUrl}/${endPoint}`, options).then(this.checkResponse);
   }
 
   getIngredientsList = () => {
-    return this.getData(`${this.baseUrl}/${this.ingredientsEndPoint}`);
+    return this.getData(this.ingredientsEndPoint);
   };
 
   getOrderId = (ingredientsList) => {
-    return this.getData(`${this.baseUrl}/${this.orderEndPoint}`, {
+    return this.getData(this.orderEndPoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
