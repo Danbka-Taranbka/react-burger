@@ -1,26 +1,15 @@
 import styles from './ingredients-category.module.css';
 import IngredientItem from '../ingredient-item/ingredient-item';
-import { IngredientsContext } from '../../utils/ingredientsContext';
-import {ConstructorContext} from '../../utils/constructorContext.js';
-import { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-const isBun = (current) => {
-  if (current.type === 'bun') {
-    return (current.price * 2);
-  }  else {
-    return current.price;
-  }
-};
-
-function IngredientsCategory ({title, type, openIngredient}) {
-  const [constructorState, dispatchConstructorState] = useContext(ConstructorContext);
-  const [ingredientsData] = useContext(IngredientsContext);
+function IngredientsCategory ({title, type, openIngredient, dragType}) {
   
-  function handleIngredientClick (data) {
+  //function handleIngredientClick (data) {
     //Открытие модального окна ингредиента
     //openIngredient(data); 
     
+    /*
     //Добавление ингредиента в конструктор по клику, в дальнейшем будет заменено на перетаскивание
     const hasBun = constructorState.constructorData.find(element => element.type === 'bun');
     //"Убираем" возможность добавления второй булки в конструктор, нельзя есть слишком много мучного!
@@ -28,19 +17,19 @@ function IngredientsCategory ({title, type, openIngredient}) {
       return;
     } else {
       dispatchConstructorState({type: "add", newIngredient: data, isBun: isBun});
-    }
-  }
-  const renderItem = (data) => {
-    return <li key={data._id} onClick={() => {handleIngredientClick(data)}}><IngredientItem data={data}/></li>
-  }
+    }*/
+ // }
+
+
+  const ingredientsList = useSelector((store) => store.ingredients.data)
   
-  const typeData = ingredientsData.filter(element => element.type === type);
+  const typeData = ingredientsList.filter(element => element.type === type);
 
   return(
     <div className={`${styles.ingredientsBlock} mt-10`}>
       <h3 className={`text text_type_main-medium ${styles.title}`}>{title}</h3>
       <ul className={`${styles.list} pl-4`}>
-      {typeData.map(element => renderItem(element))}
+      {typeData.map(ingredient => {return <IngredientItem key={ingredient._id} ingredient={ingredient} openIngredient={openIngredient} type={dragType}/>})}
       </ul> 
     </div>
   )
@@ -50,6 +39,7 @@ IngredientsCategory.propTypes = {
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   openIngredient: PropTypes.func.isRequired,
+  dragType: PropTypes.string.isRequired
 }
 
 

@@ -1,111 +1,80 @@
-import { useEffect, useState, useReducer } from "react";
+import { useEffect, useCallback } from "react";
 import appStyles from './app.module.css';
 
 import AppHeader from '../app-header/app-header.js';
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import Api from "../../api/api";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details.js";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import {IngredientsContext} from "../../utils/ingredientsContext.js";
-import {ConstructorContext} from "../../utils/constructorContext.js";
 
-const api = new Api();
-
-const initialConstructorState = {
-  constructorData: [],
-  totalPrice: 0
-}
-
-function constructorReducer (constructorState, action) {
-  switch (action.type) {
-    case "add": 
-      //Добавляем новый ингредиент в конструктор
-      return {constructorData: [...constructorState.constructorData, action.newIngredient],
-        //Прибавляем цену нового ингредиента к общей стоимости
-        totalPrice: constructorState.totalPrice + action.isBun(action.newIngredient)};
-    case "remove": 
-      //Здесь будет реализовано удаление ингредиента и вычитание его цены из общей стоимости
-      return console.log('Ingredient has been removed');
-    default: 
-      throw new Error(`Wrong type of action: ${action}`)
-  }
-}
+import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { getIngredients, openIngredientAction, closeIngredientAction, closeOrderAction} from '../../services/actions/index.js'
 
 function App () {
-  const [state, setState] = useState({
-    isLoading: false,
-    hasError: false,
-    data: [],
-  });
-
-  const [constructorState, dispatchConstructorState] = useReducer(constructorReducer, initialConstructorState);
-
-  const [orderId, setOrderId] = useState(0);
-  const [isOpenIngredientModal, setIngredientModal] = useState(false);
-  const [isOpenOrderModal, setOrderModal] = useState(false);
-  const [ingredient, setIngredient] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setState({...state, isLoading: true, hasError: false});
-    api
-    .getIngredientsList()
-    .then(( {data} ) => setState({...state, data, isLoading: false }))
-    .catch ((e) => {
-      setState({...state, hasError: true, isLoading: true})
-    });
+    dispatch(getIngredients());
+  }, [dispatch]);
+
+  const data = useSelector((store) => store.ingredients.data);
+  const dataRequest = useSelector((store) => store.ingredients.dataRequest);
+  const dataFailed = useSelector((store) => store.ingredients.dataFailed);
+
+  const currentIngredient = useSelector(
+    (store) => store.ingredients.currentIngredient
+  );
+
+  const orderSuccess = useSelector(
+    (store) => store.order.orderSuccess
+  );
+
+  const ingredientModal = useSelector(
+    (store) => store.ingredients.ingredientModal
+  );
+
+  const orderModal = useSelector(
+    (store) => store.ingredients.orderModal
+  );
+
+  const openIngredient = useCallback((item) => {
+    dispatch(openIngredientAction(item));
   }, []);
 
-  const confirmOrder = () => {
-    setState({...state, isLoading: true, hasError: false});
-    const orderList = constructorState.constructorData.map((ingredient) => {
-        return ingredient._id;
-      })
-    api
-      .getOrderId(orderList)
-      .then((res) => {
-        setOrderId(res.order.number);
-        setState({...state, isLoading: false, hasError: false});
-      })
-      .then(() => {
-        openOrderDetails();
-      })
-      .catch ((e) => {
-        setState({...state, hasError: true, isLoading: true})
-      });
-  };
+  const closeIngredient = useCallback(() => {
+    dispatch(closeIngredientAction());
+  }, []);
 
-  //Работа с модальными окнами
-  const handleCloseIngredientModal = () => {
-    setIngredientModal(false);
-  };
-
-  const handleCloseOrderModal = () => {
-    setOrderModal(false);
-  };
-
-  const openIngredient = (ingred) => {
-    setIngredient(ingred);
-    setIngredientModal(true);
-  };
-
-  const openOrderDetails = () => {
-    setOrderModal(true);
-  };
+  const closeOrder = useCallback(() => {
+    dispatch(closeOrderAction());
+  }, []);
 
   return(
     <div className={`${appStyles.app}`}>
       <AppHeader />
-      <IngredientsContext.Provider value={[state.data]}>
-        <ConstructorContext.Provider value={[constructorState, dispatchConstructorState]}>
-          {state.data.length > 0 && 
-          <><BurgerIngredients openIngredient={openIngredient}/>
-          <BurgerConstructor confirmOrder={confirmOrder}/></>}
-        </ConstructorContext.Provider>
-      </IngredientsContext.Provider>
-    {isOpenIngredientModal && <Modal onClose={handleCloseIngredientModal}><IngredientDetails data={ingredient}/></Modal>}
-    {isOpenOrderModal && <Modal onClose={handleCloseOrderModal}><OrderDetails orderId={orderId}/></Modal>}
+      {dataRequest && ('Loading...')}
+      {dataFailed && ('Error:(')}
+      {!dataRequest && !dataFailed && data.length && (
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients openIngredient={openIngredient}/>
+          <BurgerConstructor/>
+        </DndProvider>
+      )}
+
+
+    {ingredientModal && (
+    <Modal onClose={closeIngredient}>
+      <IngredientDetails data={currentIngredient}/>
+    </Modal>
+    )}
+    {orderModal && orderSuccess && (
+    <Modal onClose={closeOrder}>
+      <OrderDetails/>
+    </Modal>
+    )}
     </div>
   )
 }

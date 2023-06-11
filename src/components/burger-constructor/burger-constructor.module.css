@@ -41,3 +41,17 @@
 .constructorElement {
   cursor: pointer;
 }
+
+.emptyContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  min-height: 500px;
+  height: 100%;
+}
+
+.text {
+  text-align: center;
+}

@@ -1,8 +1,11 @@
 import styles from './ingredient-details.module.css';
 import { ingredientPropTypes } from '../../utils/config';
+import { useSelector } from 'react-redux';
 
 
-export default function IngredientDetails ({data}) {
+export default function IngredientDetails () {
+
+  const data = useSelector((store) => store.ingredients.currentIngredient)
 
   const detailsItem = (text, detail) => {
    return (
