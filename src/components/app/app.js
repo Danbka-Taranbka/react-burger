@@ -11,7 +11,14 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { getIngredients, openIngredientAction, closeIngredientAction, closeOrderAction} from '../../services/actions/index.js'
+import { getIngredients, 
+  toggleOrderInfoAction,
+  clearConstructorAction,
+  resetCountersAction} from '../../services/actions/index.js';
+import {setCurrentIngredientAction, 
+  toggleIngredientInfoAction, 
+  clearCurrentIngredientAction, 
+} from '../../services/actions/index.js';
 
 function App () {
   const dispatch = useDispatch();
@@ -41,15 +48,19 @@ function App () {
   );
 
   const openIngredient = useCallback((item) => {
-    dispatch(openIngredientAction(item));
+    dispatch(setCurrentIngredientAction(item));
+    dispatch(toggleIngredientInfoAction());
   }, []);
 
   const closeIngredient = useCallback(() => {
-    dispatch(closeIngredientAction());
+    dispatch(toggleIngredientInfoAction());
+    dispatch(clearCurrentIngredientAction());
   }, []);
 
   const closeOrder = useCallback(() => {
-    dispatch(closeOrderAction());
+    dispatch(toggleOrderInfoAction());
+    dispatch(clearConstructorAction());
+    dispatch(resetCountersAction());
   }, []);
 
   return(

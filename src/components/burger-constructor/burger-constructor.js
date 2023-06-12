@@ -1,8 +1,14 @@
 import { useEffect } from 'react';
+import { v4 as uuidv4 } from "uuid";
 import styles from "./burger-constructor.module.css";
 import { Button, CurrencyIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from 'react-redux';
-import { createOrder, addIngredientAction, changeBunAction } from '../../services/actions/index.js';
+import { createOrder,    
+  addConstructorItemAction, 
+  updateIngredientCounterAction,
+  setBunItemAction,
+  updateBunCounterAction
+} from '../../services/actions/index.js';
 import { UPDATE_TOTAL_PRICE } from '../../services/actions/index.js';
 import { UPDATE_CONSTRUCTOR_EMPTINESS } from '../../services/actions/order.js';
 import { useDrop } from "react-dnd/dist/hooks";
@@ -22,11 +28,14 @@ function BurgerConstructor () {
   );
 
   const changeBun = (bun) => {
-    dispatch(changeBunAction(bun._id));
+    dispatch(setBunItemAction(bun._id));
+    dispatch(updateBunCounterAction(bun._id));
   }
 
   const addIngredient = (ingredient) => {
-    dispatch(addIngredientAction(ingredient._id));
+    const uuid = uuidv4();
+    dispatch(addConstructorItemAction(ingredient._id, uuid));
+    dispatch(updateIngredientCounterAction(ingredient._id));
   };
 
   const confirmOrder = () =>{

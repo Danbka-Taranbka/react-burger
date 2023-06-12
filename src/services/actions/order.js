@@ -38,10 +38,22 @@ export function createOrder(ingredientsList) {
   };
 }
 
-export const closeOrderAction = () => {
+export const toggleOrderInfoAction = () => ({
+  type: TOGGLE_ORDER_MODAL
+})
+
+export const clearConstructorAction = () => ({
+  type: CLEAR_CONSTRUCTOR
+})
+
+export const resetCountersAction = () => ({
+  type: RESET_COUNTERS
+})
+
+/*export const closeOrderAction = () => {
   return (dispatch) => {
     dispatch({ type: TOGGLE_ORDER_MODAL });
     dispatch({ type: CLEAR_CONSTRUCTOR });
     dispatch({ type: RESET_COUNTERS });
   };
-};
+};*/

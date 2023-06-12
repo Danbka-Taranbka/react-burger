@@ -2,7 +2,7 @@ import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burg
 import { useDrag, useDrop } from "react-dnd";
 import styles from "./constructor-item.module.css";
 import { useDispatch } from "react-redux";
-import {  SORT_DRAGGING_ITEM, removeIngredientAction} from "../../services/actions";
+import {  SORT_DRAGGING_ITEM, removeConstructorItemAction, updateIngredientCounterAction} from "../../services/actions/index.js";
 import { useRef } from "react";
 import { ingredientPropTypes } from '../../utils/config';
 import PropTypes from 'prop-types';
@@ -12,7 +12,8 @@ export const ConstructorItem = ({ingredient, type, index}) => {
   const ref = useRef(null);
   const id = ingredient._id;
   const removeIngredient = (uniqueId, itemId) => {
-    dispatch(removeIngredientAction(itemId, uniqueId));
+    dispatch(removeConstructorItemAction(uniqueId));
+    dispatch(updateIngredientCounterAction(itemId))
   };
 
   const [, drop] = useDrop({
