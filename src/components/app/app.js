@@ -33,11 +33,11 @@ function App () {
   );
 
   const ingredientModal = useSelector(
-    (store) => store.ingredients.ingredientModal
+    (store) => store.ingredientPopup.ingredientModal
   );
 
   const orderModal = useSelector(
-    (store) => store.ingredients.orderModal
+    (store) => store.order.orderModal
   );
 
   const openIngredient = useCallback((item) => {

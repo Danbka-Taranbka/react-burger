@@ -1,26 +1,27 @@
 import {
+  UPDATE_TOTAL_PRICE,
+  SORT_DRAGGING_ITEM,
+} from "../actions/index.js";
+
+import {
+  CLEAR_CONSTRUCTOR,
+  RESET_COUNTERS,
+} from "../actions/order.js"
+
+import {
   GET_INGREDIENT_REQUEST,
   GET_INGREDIENT_SUCCESS,
   GET_INGREDIENT_FAILED,
 
-  SET_INGREDIENT,
-  SET_BUN,
+} from '../actions/ingredients.js';
 
+import {
+  SET_BUN,
   ADD_CONSTRUCTOR_ITEM,
   DELETE_CONSTRUCTOR_ITEM,
-
-  CLEAR_INGREDIENT,
-  UPDATE_TOTAL_PRICE,
   UPDATE_INGREDIENT_COUNTER,
   UPDATE_BUN_COUNTER,
-  SORT_DRAGGING_ITEM,
-
-  TOGGLE_INGREDIENT_MODAL,
-  TOGGLE_ORDER_MODAL,
-
-  CLEAR_CONSTRUCTOR,
-  RESET_COUNTERS,
-} from "../actions/index.js";
+} from "../actions/constructor.js"
 
 const initialState = {
   data: [],
@@ -33,9 +34,6 @@ const initialState = {
   currentIngredient: {},
 
   totalPrice: 0,
-
-  ingredientModal: false,
-  orderModal: false,
 };
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -59,12 +57,7 @@ export const ingredientsReducer = (state = initialState, action) => {
     case GET_INGREDIENT_FAILED: {
       return { ...state, dataFailed: true, dataRequest: false };
     }
-    case SET_INGREDIENT: {
-      return { ...state, currentIngredient: action.payload };
-    }
-    case CLEAR_INGREDIENT: {
-      return { ...state, currentIngredient: {} };
-    }
+
     case SET_BUN: {
       return {
         ...state,
@@ -142,18 +135,6 @@ export const ingredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         constructorIngredients: newConstructorList,
-      };
-    }
-    case TOGGLE_INGREDIENT_MODAL: {
-      return {
-        ...state,
-        ingredientModal: !state.ingredientModal,
-      };
-    }
-    case TOGGLE_ORDER_MODAL: {
-      return {
-        ...state,
-        orderModal: !state.orderModal,
       };
     }
     case CLEAR_CONSTRUCTOR: {

@@ -3,7 +3,8 @@ import {
   GET_ORDER_SUCCESS,
   GET_ORDER_FAILED,
   UPDATE_CONSTRUCTOR_EMPTINESS,
-} from "../actions/index.js";
+  TOGGLE_ORDER_MODAL
+} from "../actions/order.js";
 
 const initialState = {
   orderInfo: {},
@@ -11,6 +12,7 @@ const initialState = {
   orderFailed: false,
   orderSuccess: false,
   isEmpty: true,
+  orderModal: false,
 };
 
 export const orderReducer = (state = initialState, action) => {
@@ -38,6 +40,12 @@ export const orderReducer = (state = initialState, action) => {
         ...state,
         isEmpty: action.payload,
         orderSuccess: false,
+      };
+    }
+    case TOGGLE_ORDER_MODAL: {
+      return {
+        ...state,
+        orderModal: !state.orderModal,
       };
     }
     default:

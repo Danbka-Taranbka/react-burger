@@ -1,11 +1,10 @@
 import styles from './ingredient-details.module.css';
-import { ingredientPropTypes } from '../../utils/config';
 import { useSelector } from 'react-redux';
 
 
 export default function IngredientDetails () {
 
-  const data = useSelector((store) => store.ingredients.currentIngredient)
+  const data = useSelector((store) => store.ingredientPopup.currentIngredient)
 
   const detailsItem = (text, detail) => {
    return (
@@ -29,8 +28,4 @@ export default function IngredientDetails () {
       </div>
     </div>
   )
-}
-
-IngredientDetails.propTypes = {
-  data: ingredientPropTypes.isRequired,
 }

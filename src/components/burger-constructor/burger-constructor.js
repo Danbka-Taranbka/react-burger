@@ -3,7 +3,8 @@ import styles from "./burger-constructor.module.css";
 import { Button, CurrencyIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrder, addIngredientAction, changeBunAction } from '../../services/actions/index.js';
-import { UPDATE_CONSTRUCTOR_EMPTINESS, UPDATE_TOTAL_PRICE } from '../../services/actions/index.js';
+import { UPDATE_TOTAL_PRICE } from '../../services/actions/index.js';
+import { UPDATE_CONSTRUCTOR_EMPTINESS } from '../../services/actions/order.js';
 import { useDrop } from "react-dnd/dist/hooks";
 import {ConstructorItem} from "../constructor-item/constructor-item.js"
 
