@@ -1,0 +1,10 @@
+.listItem {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 13.5px;
+  align-items: center;
+  cursor: pointer;
+}

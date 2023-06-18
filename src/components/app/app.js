@@ -1,61 +1,91 @@
-import { useEffect, useState } from "react";
+import { useEffect, useCallback } from "react";
 import appStyles from './app.module.css';
 
 import AppHeader from '../app-header/app-header.js';
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import Api from "../../api/api";
 import Modal from "../modal/modal";
-import OrderDetails from "../../order-details/order-details";
+import OrderDetails from "../order-details/order-details.js";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
-const api = new Api();
+import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { getIngredients, 
+  toggleOrderInfoAction,
+  clearConstructorAction,
+  resetCountersAction} from '../../services/actions/index.js';
+import {setCurrentIngredientAction, 
+  toggleIngredientInfoAction, 
+  clearCurrentIngredientAction, 
+} from '../../services/actions/index.js';
 
 function App () {
-  const [state, setState] = useState({
-    isLoading: false,
-    hasError: false,
-    data: [],
-  });
-
-  const [isOpenIngredientModal, setIngredientModal] = useState(false);
-  const [isOpenOrderModal, setOrderModal] = useState(false);
-  const [ingredient, setIngredient] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setState({...state, isLoading: true, hasError: false});
-    api
-    .getIngredientsList()
-    .then(( {data} ) => setState({...state, data, isLoading: false }))
-    .catch ((e) => {
-      setState({...state, hasError: true, isLoading: true})
-    });
+    dispatch(getIngredients());
+  }, [dispatch]);
+
+  const data = useSelector((store) => store.ingredients.data);
+  const dataRequest = useSelector((store) => store.ingredients.dataRequest);
+  const dataFailed = useSelector((store) => store.ingredients.dataFailed);
+
+  const currentIngredient = useSelector(
+    (store) => store.ingredients.currentIngredient
+  );
+
+  const orderSuccess = useSelector(
+    (store) => store.order.orderSuccess
+  );
+
+  const ingredientModal = useSelector(
+    (store) => store.ingredientPopup.ingredientModal
+  );
+
+  const orderModal = useSelector(
+    (store) => store.order.orderModal
+  );
+
+  const openIngredient = useCallback((item) => {
+    dispatch(setCurrentIngredientAction(item));
+    dispatch(toggleIngredientInfoAction());
   }, []);
 
-  const handleCloseIngredientModal = () => {
-    setIngredientModal(false);
-  };
+  const closeIngredient = useCallback(() => {
+    dispatch(toggleIngredientInfoAction());
+    dispatch(clearCurrentIngredientAction());
+  }, []);
 
-  const handleCloseOrderModal = () => {
-    setOrderModal(false);
-  };
-
-  const openIngredient = (ingred) => {
-    setIngredient(ingred);
-    setIngredientModal(true);
-  };
-
-  const openOrderDetails = () => {
-    setOrderModal(true);
-  };
+  const closeOrder = useCallback(() => {
+    dispatch(toggleOrderInfoAction());
+    dispatch(clearConstructorAction());
+    dispatch(resetCountersAction());
+  }, []);
 
   return(
     <div className={`${appStyles.app}`}>
-    <AppHeader />
-   {state.data.length && <><BurgerIngredients data={state.data} openIngredient={openIngredient}/>
-   <BurgerConstructor data={state.data} confirmOrder={openOrderDetails}/></>}
-    {isOpenIngredientModal && <Modal onClose={handleCloseIngredientModal}><IngredientDetails data={ingredient}/></Modal>}
-    {isOpenOrderModal && <Modal onClose={handleCloseOrderModal}><OrderDetails orderId={'034536'}/></Modal>}
+      <AppHeader />
+      {dataRequest && ('Loading...')}
+      {dataFailed && ('Error:(')}
+      {!dataRequest && !dataFailed && data.length && (
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients openIngredient={openIngredient}/>
+          <BurgerConstructor/>
+        </DndProvider>
+      )}
+
+
+    {ingredientModal && (
+    <Modal onClose={closeIngredient}>
+      <IngredientDetails data={currentIngredient}/>
+    </Modal>
+    )}
+    {orderModal && orderSuccess && (
+    <Modal onClose={closeOrder}>
+      <OrderDetails/>
+    </Modal>
+    )}
     </div>
   )
 }
