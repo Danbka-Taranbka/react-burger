@@ -3,6 +3,9 @@
     this.baseUrl = "https://norma.nomoreparties.space/api";
     this.ingredientsEndPoint = "ingredients";
     this.orderEndPoint = "orders";
+    this.forgotPasswordEndPoint = "password-reset";
+    this.resetPasswordEndPoint = "password-reset/reset";
+    this.createUserEndPoint = "auth/register"
   }
 
   checkResponse(res) {
@@ -32,6 +35,44 @@
     });
   };
 
+  forgotPassword = (email) => {
+    return this.getData(this.forgotPasswordEndPoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: email,
+      }),
+    });
+  }
+
+  resetPassword = (newPassword, token) => {
+    return this.getData(this.resetPasswordEndPoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        password: newPassword,
+        token: token
+      }),
+    });
+  }
+
+  createUser = (email, password, name) => {
+    return this.getData(this.createUserEndPoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        name: name
+      }),
+    })
+  }
 }
 
 export default Api;

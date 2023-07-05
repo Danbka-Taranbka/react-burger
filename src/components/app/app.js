@@ -1,5 +1,6 @@
 import { useEffect, useCallback } from "react";
 import appStyles from './app.module.css';
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 import AppHeader from '../app-header/app-header.js';
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
@@ -19,6 +20,12 @@ import {setCurrentIngredientAction,
   toggleIngredientInfoAction, 
   clearCurrentIngredientAction, 
 } from '../../services/actions/index.js';
+
+import { RegistrationPage } from "../../pages/registration-page";
+import { LoginPage } from "../../pages/login-page";
+import { ForgotPasswordPage } from "../../pages/forgot-password-page";
+import { ResetPasswordPage } from "../../pages/reset-password-page";
+import MainPage from "../../pages/main-page";
 
 function App () {
   const dispatch = useDispatch();
@@ -63,7 +70,22 @@ function App () {
     dispatch(resetCountersAction());
   }, []);
 
-  return(
+  return (
+    <div className={appStyles.app}>
+      <AppHeader/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/register" element={<RegistrationPage />}/>
+          <Route path="/login" element={<LoginPage />}/>
+          <Route path="/forgot-password" element={<ForgotPasswordPage />}/>
+          <Route path="/reset-password" element={<ResetPasswordPage />}/>
+          <Route path="/" element={<MainPage openIngredient={openIngredient} closeOrder={closeOrder} closeIngredient={closeIngredient}/>}/>
+        </Routes>
+      </BrowserRouter>
+    </div>
+  )
+
+  /*return(
     <div className={`${appStyles.app}`}>
       <AppHeader />
       {dataRequest && ('Loading...')}
@@ -87,7 +109,7 @@ function App () {
     </Modal>
     )}
     </div>
-  )
+  )*/
 }
 
 export default App;

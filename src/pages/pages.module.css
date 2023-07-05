@@ -1,4 +1,13 @@
-.app {
+.link {
+  color: #4C4CFF;
+  text-decoration: none;
+}
+
+.link:visited {
+  color: #4C4CFF;
+}
+
+.main {
   text-align: center;
   display: flex;
   flex-direction: row;
