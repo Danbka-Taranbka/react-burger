@@ -1,0 +1,23 @@
+.profile__menu {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.profile__link {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  color: #4C4CFF;
+  text-decoration: none;
+  text-align: start;
+}
+
+.profile__link:visited {
+  color: #4C4CFF;
+}
+
+.profile__text {
+  text-align: start;
+}

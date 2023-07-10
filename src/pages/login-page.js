@@ -3,7 +3,7 @@ import styles from './pages.module.css';
 import { Form } from "../components/form/form";
 import { Button, PasswordInput, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 export const LoginPage = () => {

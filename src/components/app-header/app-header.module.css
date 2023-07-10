@@ -31,3 +31,41 @@
     transform: rotate(360deg);
   }
 }
+
+.nav {
+  box-sizing: border-box;
+  display: block;
+}
+
+.nav_left {
+  margin-right: 112px;
+}
+
+.nav_right {
+  margin-left: 288px;
+}
+
+.list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.list__item {
+  margin: 0;
+  list-style-type: none;
+}
+
+.link {
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}

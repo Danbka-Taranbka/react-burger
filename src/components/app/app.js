@@ -26,6 +26,8 @@ import { LoginPage } from "../../pages/login-page";
 import { ForgotPasswordPage } from "../../pages/forgot-password-page";
 import { ResetPasswordPage } from "../../pages/reset-password-page";
 import MainPage from "../../pages/main-page";
+import { HeaderPage } from "../../pages/header-page";
+import { ProfilePage } from "../../pages/profile-page";
 
 function App () {
   const dispatch = useDispatch();
@@ -72,14 +74,18 @@ function App () {
 
   return (
     <div className={appStyles.app}>
-      <AppHeader/>
       <BrowserRouter>
         <Routes>
-          <Route path="/register" element={<RegistrationPage />}/>
-          <Route path="/login" element={<LoginPage />}/>
-          <Route path="/forgot-password" element={<ForgotPasswordPage />}/>
-          <Route path="/reset-password" element={<ResetPasswordPage />}/>
-          <Route path="/" element={<MainPage openIngredient={openIngredient} closeOrder={closeOrder} closeIngredient={closeIngredient}/>}/>
+          <Route path="/" element={<HeaderPage/>}>
+            <Route path="/register" element={<RegistrationPage />}/>
+            <Route path="/login" element={<LoginPage />}/>
+            <Route path="/forgot-password" element={<ForgotPasswordPage />}/>
+            <Route path="/reset-password" element={<ResetPasswordPage />}/>
+            <Route path="/" element={<MainPage openIngredient={openIngredient} closeOrder={closeOrder} closeIngredient={closeIngredient}/>}/>
+            <Route path="/profile" element={<ProfilePage/>}/>
+            <Route path="/profile/orders"/>
+            <Route path="/profile/orders/:id"/>
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>
