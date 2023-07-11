@@ -1,6 +1,7 @@
 import { useEffect, useCallback } from "react";
 import appStyles from './app.module.css';
 import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { ProtectedRouteElement } from "../protected-route";
 
 import AppHeader from '../app-header/app-header.js';
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
@@ -28,6 +29,8 @@ import { ResetPasswordPage } from "../../pages/reset-password-page";
 import MainPage from "../../pages/main-page";
 import { HeaderPage } from "../../pages/header-page";
 import { ProfilePage } from "../../pages/profile-page";
+import { ProfileForm } from "../profile-form/profile-form";
+import { ProfileOrders } from "../profile-orders/profile-orders";
 
 function App () {
   const dispatch = useDispatch();
@@ -77,12 +80,15 @@ function App () {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HeaderPage/>}>
-            <Route path="/register" element={<RegistrationPage />}/>
-            <Route path="/login" element={<LoginPage />}/>
-            <Route path="/forgot-password" element={<ForgotPasswordPage />}/>
-            <Route path="/reset-password" element={<ResetPasswordPage />}/>
+            <Route path="/register" element={<ProtectedRouteElement element={<RegistrationPage />} auth={true}/>}/>
+            <Route path="/login" element={<ProtectedRouteElement element={<LoginPage />} auth={true}/>}/>
+            <Route path="/forgot-password" element={<ProtectedRouteElement element={<ForgotPasswordPage />} auth={true}/>}/>
+            <Route path="/reset-password" element={<ProtectedRouteElement element={<ResetPasswordPage />} auth={true}/>}/>
             <Route path="/" element={<MainPage openIngredient={openIngredient} closeOrder={closeOrder} closeIngredient={closeIngredient}/>}/>
-            <Route path="/profile" element={<ProfilePage/>}/>
+            <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />}/>}>
+              <Route index element={<ProfileForm/>}/>
+              <Route path="orders" element={<ProfileOrders/>}/>
+            </Route>
             <Route path="/profile/orders"/>
             <Route path="/profile/orders/:id"/>
           </Route>

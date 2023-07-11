@@ -9,13 +9,10 @@
   height: 64px;
   display: flex;
   align-items: center;
-  color: #4C4CFF;
+  color: #8585ad;
   text-decoration: none;
   text-align: start;
-}
-
-.profile__link:visited {
-  color: #4C4CFF;
+  cursor: pointer;
 }
 
 .profile__text {
