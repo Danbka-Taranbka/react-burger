@@ -31,6 +31,7 @@ import { HeaderPage } from "../../pages/header-page";
 import { ProfilePage } from "../../pages/profile-page";
 import { ProfileForm } from "../profile-form/profile-form";
 import { ProfileOrders } from "../profile-orders/profile-orders";
+import { IngredientPage } from "../../pages/ingredient-page";
 
 function App () {
   const dispatch = useDispatch();
@@ -62,6 +63,7 @@ function App () {
   const openIngredient = useCallback((item) => {
     dispatch(setCurrentIngredientAction(item));
     dispatch(toggleIngredientInfoAction());
+    
   }, []);
 
   const closeIngredient = useCallback(() => {
@@ -80,6 +82,7 @@ function App () {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HeaderPage/>}>
+            <Route path="/ingredients/:id" element={<IngredientPage/>}/>
             <Route path="/register" element={<ProtectedRouteElement element={<RegistrationPage />} auth={true}/>}/>
             <Route path="/login" element={<ProtectedRouteElement element={<LoginPage />} auth={true}/>}/>
             <Route path="/forgot-password" element={<ProtectedRouteElement element={<ForgotPasswordPage />} auth={true}/>}/>

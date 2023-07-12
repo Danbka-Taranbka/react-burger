@@ -2,9 +2,11 @@ import styles from './ingredient-item.module.css';
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import { useDrag } from 'react-dnd';
+import { useNavigate } from 'react-router-dom';
 
 
 function IngredientItem ({ingredient, openIngredient, type }) {
+  const navigate = useNavigate();
 
   const { name, image, price, _id, counter } = ingredient;
 
@@ -27,7 +29,10 @@ function IngredientItem ({ingredient, openIngredient, type }) {
   };
 
   return(
-    <div ref={ref} className={styles.ingredient} id={_id} onClick={() => {openIngredient(ingredient)}}>
+    <div ref={ref} className={styles.ingredient} id={_id} onClick={() => {
+      openIngredient(ingredient); 
+      navigate("/ingredients/:id")
+      }}>
       {renderCounter(counter)}
       <img className={styles.image} src={image} alt={name}/>
       <p className={`text text_type_digits-default ${styles.price}`}>{price} <CurrencyIcon/></p>

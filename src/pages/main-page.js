@@ -12,9 +12,6 @@ export default function MainPage({openIngredient, closeIngredient, closeOrder}) 
   const data = useSelector((store) => store.ingredients.data);
   const dataRequest = useSelector((store) => store.ingredients.dataRequest);
   const dataFailed = useSelector((store) => store.ingredients.dataFailed);
-  const currentIngredient = useSelector(
-    (store) => store.ingredients.currentIngredient
-  );
 
   const orderSuccess = useSelector(
     (store) => store.order.orderSuccess
@@ -40,7 +37,7 @@ export default function MainPage({openIngredient, closeIngredient, closeOrder}) 
       )}
     {ingredientModal && (
     <Modal onClose={closeIngredient}>
-      <IngredientDetails data={currentIngredient}/>
+      <IngredientDetails/>
     </Modal>
     )}
     {orderModal && orderSuccess && (
