@@ -8,8 +8,22 @@ export const setCurrentIngredientAction = (ingredient) => ({
 })
 
 export const toggleIngredientInfoAction = () => ({
-  type: TOGGLE_INGREDIENT_MODAL
+ type: TOGGLE_INGREDIENT_MODAL
 })
+
+export const openIngredientInfoAction = (item) => {
+  return (dispatch) => {
+    localStorage.setItem("ingredientModal", true);
+    localStorage.setItem('currentIngredient', JSON.stringify(item));
+  }
+}
+
+export const closeIngredientInfoAction = (item) => {
+  return (dispatch) => {
+    localStorage.setItem('ingredientModal', false);
+    localStorage.removeItem('currentIngredient', JSON.stringify(item));
+  }
+}
 
 export const clearCurrentIngredientAction = () => ({
   type: CLEAR_INGREDIENT

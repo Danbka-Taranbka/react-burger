@@ -3,12 +3,22 @@ import BurgerConstructor from "../components/burger-constructor/burger-construct
 import BurgerIngredients from "../components/burger-ingredients/burger-ingredients";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import OrderDetails from '../components/order-details/order-details';
 import IngredientDetails from '../components/ingredient-details/ingredient-details';
 import Modal from '../components/modal/modal';
+import {useEffect, useCallback} from "react";
+import { getIngredients } from '../services/actions';
+import { openIngredientInfoAction, toggleIngredientInfoAction } from '../services/actions/ingredientPopup';
+import { toggleOrderInfoAction, clearConstructorAction, resetCountersAction } from '../services/actions';
 
-export default function MainPage({openIngredient, closeIngredient, closeOrder}) {
+export default function MainPage() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch])
+
   const data = useSelector((store) => store.ingredients.data);
   const dataRequest = useSelector((store) => store.ingredients.dataRequest);
   const dataFailed = useSelector((store) => store.ingredients.dataFailed);
@@ -25,6 +35,21 @@ export default function MainPage({openIngredient, closeIngredient, closeOrder}) 
     (store) => store.order.orderModal
   );
   
+
+  const openIngredient = useCallback(
+    (item) => {
+      dispatch(openIngredientInfoAction(item));
+      dispatch(toggleIngredientInfoAction());
+    },
+    [dispatch]
+  );
+
+  const closeOrder = useCallback(() => {
+    dispatch(toggleOrderInfoAction());
+    dispatch(clearConstructorAction());
+    dispatch(resetCountersAction());
+  }, [dispatch]);
+
   return(
     <div className={`${styles.main}`}>
       {dataRequest && ('Loading...')}
@@ -35,11 +60,6 @@ export default function MainPage({openIngredient, closeIngredient, closeOrder}) 
           <BurgerConstructor/>
         </DndProvider>
       )}
-    {ingredientModal && (
-    <Modal onClose={closeIngredient}>
-      <IngredientDetails/>
-    </Modal>
-    )}
     {orderModal && orderSuccess && (
     <Modal onClose={closeOrder}>
       <OrderDetails/>

@@ -1,26 +1,35 @@
 import IngredientDetails from "../components/ingredient-details/ingredient-details";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getIngredients } from "../services/actions";
-import {useEffect} from "react";
+import {useEffect, useCallback} from "react";
+import { useNavigate } from "react-router-dom";
+import Modal from "../components/modal/modal";
+import { closeIngredientInfoAction } from "../services/actions/ingredientPopup";
 
 export const IngredientPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
+  const currentIngredient = JSON.parse(
+    localStorage.getItem("currentIngredient")
+  );
 
-  const data = useSelector((store) => store.ingredients.data);
-  const dataRequest = useSelector((store) => store.ingredients.dataRequest);
-  const dataFailed = useSelector((store) => store.ingredients.dataFailed);
+  const ingredientModal = JSON.parse(
+    localStorage.getItem("ingredientModal")
+  )
+
+  const closeIngredient = useCallback(() => {
+    dispatch(closeIngredientInfoAction())
+    navigate(-1);
+  }, [dispatch, navigate])
 
   return (
-    <>
-      {dataRequest && "Загрузка"}
-      {dataFailed && "Произошла ошибка"}
-      {!dataRequest && !dataFailed && data.length && (
-        <IngredientDetails />
-      )}
-    </>
+
+      ingredientModal && (
+        <Modal onClose={closeIngredient}>
+        <IngredientDetails data={currentIngredient}/>
+        </Modal>
+      )
+
   )
 }
