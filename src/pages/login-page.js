@@ -32,7 +32,7 @@ export const LoginPage = () => {
   );
 
   return (
-    <Form title='Вход'>
+    <Form title='Вход' onSubmit={onSubmit} name="loginForm">
       <EmailInput
         onChange={onChange}
         value={form.value}
@@ -47,7 +47,7 @@ export const LoginPage = () => {
         name={'password'}
         extraClass="mb-6"
       />
-      <Button htmlType="button" type="primary" size="medium" extraClass="mb-20" onClick={onSubmit}>Войти</Button>
+      <Button htmlType="submit" type="primary" size="medium" extraClass="mb-20">Войти</Button>
       <p className={`text text_type_main-small text_color_inactive mb-4`}>Вы - новый пользователь? <a className={`text text_type_main-small ${styles.link}`} href="/register">Зарегестрироваться</a></p>
       <p className={`text text_type_main-small text_color_inactive`}>Забыли пароль? <a className={`text text_type_main-small ${styles.link}`} href="/forgot-password">Восстановить пароль</a></p>
     </Form>

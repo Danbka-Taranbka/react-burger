@@ -2,7 +2,6 @@ import styles from './ingredient-details.module.css';
 
 
 export default function IngredientDetails ({ data }) {
-  console.log(data)
   const detailsItem = (text, detail) => {
    return (
     <div className={`${styles.info}`}>

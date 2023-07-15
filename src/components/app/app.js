@@ -67,32 +67,6 @@ function App () {
 
     </div>
   )
-
-  /*return(
-    <div className={`${appStyles.app}`}>
-      <AppHeader />
-      {dataRequest && ('Loading...')}
-      {dataFailed && ('Error:(')}
-      {!dataRequest && !dataFailed && data.length && (
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients openIngredient={openIngredient}/>
-          <BurgerConstructor/>
-        </DndProvider>
-      )}
-
-
-    {ingredientModal && (
-    <Modal onClose={closeIngredient}>
-      <IngredientDetails data={currentIngredient}/>
-    </Modal>
-    )}
-    {orderModal && orderSuccess && (
-    <Modal onClose={closeOrder}>
-      <OrderDetails/>
-    </Modal>
-    )}
-    </div>
-  )*/
 }
 
 export default App;

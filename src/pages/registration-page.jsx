@@ -25,7 +25,7 @@ export const RegistrationPage = () => {
   }
 
   return (
-    <Form title='Регистрация'>
+    <Form title='Регистрация' onSubmit={onSubmit} name="regForm">
       <Input type={'text'} 
       placeholder={'Имя'}
       onChange={onChange}
@@ -47,7 +47,7 @@ export const RegistrationPage = () => {
       value={form.password}
       name={'password'}
       />
-      <Button htmlType="button" type="primary" size="medium" extraClass="mb-20" onClick={onSubmit}>Зарегестрироваться</Button>
+      <Button htmlType="submit" type="primary" size="medium" extraClass="mb-20">Зарегестрироваться</Button>
       <p className={`text text_type_main-small text_color_inactive`}>Уже зарегестрированы? <a className={`text text_type_main-small ${styles.link}`} href="/login">Войти</a></p>
     </Form>
   )
