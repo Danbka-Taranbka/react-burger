@@ -4,7 +4,7 @@ import { Form } from "../components/form/form";
 import { Button, PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { resetPassword } from "../services/actions/user";
 import { useDispatch } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const ResetPasswordPage = () => {
   const [form, setValue] = useState({newPassword: '', token: ''});

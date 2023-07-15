@@ -1,25 +1,13 @@
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import appStyles from './app.module.css';
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { ProtectedRouteElement } from "../protected-route";
 
-import AppHeader from '../app-header/app-header.js';
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import Modal from "../modal/modal";
-import OrderDetails from "../order-details/order-details.js";
-import IngredientDetails from "../ingredient-details/ingredient-details";
 
-import { useDispatch, useSelector } from "react-redux";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { getIngredients, 
-  toggleOrderInfoAction,
-  clearConstructorAction,
-  resetCountersAction} from '../../services/actions/index.js';
-import {setCurrentIngredientAction, 
-  clearCurrentIngredientAction, 
-} from '../../services/actions/index.js';
+import { useDispatch } from "react-redux";
+
+
+import { getIngredients } from '../../services/actions/index.js';
 
 import { RegistrationPage } from "../../pages/registration-page";
 import { LoginPage } from "../../pages/login-page";

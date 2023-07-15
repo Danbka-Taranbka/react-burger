@@ -63,7 +63,7 @@ function BurgerConstructor () {
     } else {
       dispatch({ type: UPDATE_CONSTRUCTOR_EMPTINESS, payload: false });
     }
-  }, [ingredientsList, chosenBun]);
+  }, [ingredientsList, chosenBun, dispatch]);
 
   const [, dropTarget] = useDrop({
     accept: ["ingredient", "bun" ],
@@ -81,7 +81,7 @@ function BurgerConstructor () {
 
   useEffect(() => {
     dispatch({ type: UPDATE_TOTAL_PRICE });
-  }, [chosenBun, ingredientsList]);
+  }, [chosenBun, ingredientsList, dispatch]);
 
   return (
     <div  className={`mt-20 ml-10 pt-5 ${styles.constructor}`}>

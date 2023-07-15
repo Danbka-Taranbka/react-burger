@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styles from './pages.module.css';
 import { Form } from "../components/form/form";
-import { Button, PasswordInput, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useNavigate } from "react-router-dom";
 import { forgotPassword } from "../services/actions/user";
 import { useDispatch } from "react-redux";
 

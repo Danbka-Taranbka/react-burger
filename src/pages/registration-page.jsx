@@ -1,10 +1,10 @@
-import {useState, useRef} from "react";
+import {useState } from "react";
 import styles from './pages.module.css';
 import { Form } from "../components/form/form";
 import { Input, Button, PasswordInput, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createUser } from "../services/actions/user";
+import { createUser, loginUser } from "../services/actions/user";
 
 export const RegistrationPage = () => {
   const [form, setValue] = useState({email: '', password: '', name: ''});
@@ -19,7 +19,9 @@ export const RegistrationPage = () => {
     e.preventDefault();
     dispatch(createUser(form)).then((res) => {
       if (res.success) {
-        navigate("/login");
+        dispatch(loginUser(form)).then(() => {
+          navigate("/")
+        })
       }
     })
   }
