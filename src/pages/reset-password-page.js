@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 
 export const ResetPasswordPage = () => {
-  const [form, setValue] = useState({newPassword: '', code: ''});
+  const [form, setValue] = useState({newPassword: '', token: ''});
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -38,7 +38,7 @@ export const ResetPasswordPage = () => {
         placeholder={'Введите код из письма'}
         onChange={onChange}
         value={form.token}
-        name={'code'}
+        name={'token'}
         error={false}
         errorText={'Ошибка'}
         size={'default'}
