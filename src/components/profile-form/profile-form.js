@@ -59,7 +59,7 @@ export const ProfileForm = () => {
   }
 
   return (
-    <Form>
+    <Form onSubmit={onSubmit} name="form">
       <Input
         type={"text"}
         placeholder={"Имя"}
@@ -113,7 +113,6 @@ export const ProfileForm = () => {
               htmlType="submit"
               type="primary"
               size="medium"
-              onClick={onSubmit}
             >
               {updateUserRequest ? "Сохраняется" : "Сохранить"}
             </Button>
