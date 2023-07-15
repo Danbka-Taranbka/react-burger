@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { v4 as uuidv4 } from "uuid";
 import styles from "./burger-constructor.module.css";
 import { Button, CurrencyIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -12,10 +12,12 @@ import { createOrder,
 import { UPDATE_TOTAL_PRICE } from '../../services/actions/index.js';
 import { UPDATE_CONSTRUCTOR_EMPTINESS } from '../../services/actions/order.js';
 import { useDrop } from "react-dnd/dist/hooks";
-import {ConstructorItem} from "../constructor-item/constructor-item.js"
+import {ConstructorItem} from "../constructor-item/constructor-item.js";
+import { useNavigate } from 'react-router-dom';
 
 
 function BurgerConstructor () {
+  const navigate = useNavigate();
    
   const dispatch = useDispatch();
   const totalPrice = useSelector((store) => store.ingredients.totalPrice);
@@ -38,15 +40,19 @@ function BurgerConstructor () {
     dispatch(updateIngredientCounterAction(ingredient._id));
   };
 
-  const confirmOrder = () =>{
-    const orderList = [
-      ingredientsList.map((ingredient) => {
-        return ingredient._id;
-      }),
-      Object.keys(chosenBun).length === 0 ? [] : chosenBun._id,
-    ].flatMap((i) => i);
-    dispatch(createOrder(orderList));
-  }
+  const confirmOrder = useCallback(() =>{
+    if (localStorage.getItem("isAuth") && chosenBun) {
+      const orderList = [
+        ingredientsList.map((ingredient) => {
+          return ingredient._id;
+        }),
+        Object.keys(chosenBun).length === 0 ? [] : chosenBun._id,
+      ].flatMap((i) => i);
+      dispatch(createOrder(orderList));
+    } else {
+      navigate("/login");
+    }
+  }, [ingredientsList, chosenBun, dispatch, navigate])
 
   useEffect(() => {
     if (
