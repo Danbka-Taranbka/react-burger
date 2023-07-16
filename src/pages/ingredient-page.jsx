@@ -1,31 +1,36 @@
 import IngredientDetails from "../components/ingredient-details/ingredient-details";
-import { useDispatch } from "react-redux";
-import { getIngredients } from "../services/actions";
-import {useEffect, useCallback} from "react";
-import { useNavigate } from "react-router-dom";
+import { useCallback, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Modal from "../components/modal/modal";
-import { closeIngredientInfoAction } from "../services/actions/ingredientPopup";
+import { useSelector, useDispatch } from "react-redux";
+import { getIngredients } from "../services/actions";
 
 export const IngredientPage = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { id } = useParams();
 
-  const currentIngredient = JSON.parse(
-    localStorage.getItem("currentIngredient")
-  );
+  const data = useSelector((store) => store.ingredients.data);
 
-  const ingredientModal = JSON.parse(
-    localStorage.getItem("ingredientModal")
-  )
+  const currentIngredient = data.find((item) => {
+    return item._id === id;
+  });
+
+  //const currentIngredient = JSON.parse(localStorage.getItem("currentIngredient"));
+
+//  const ingredientModal = JSON.parse(
+//    localStorage.getItem("ingredientModal")
+//  )
 
   const closeIngredient = useCallback(() => {
-    dispatch(closeIngredientInfoAction())
+    localStorage.setItem("ingredientModal", "false");
+    localStorage.removeItem("currentIngredient");
     navigate(-1);
-  }, [dispatch, navigate])
+  }, [navigate])
 
   return (
 
-      ingredientModal && (
+       currentIngredient && (
         <Modal onClose={closeIngredient}>
         <IngredientDetails data={currentIngredient}/>
         </Modal>
