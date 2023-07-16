@@ -31,7 +31,7 @@ function IngredientItem ({ingredient, openIngredient, type }) {
   return(
     <div ref={ref} className={styles.ingredient} id={_id} onClick={() => {
       openIngredient(ingredient); 
-      navigate("/ingredients/:id")
+      navigate("/ingredients/" + ingredient._id);
       }}>
       {renderCounter(counter)}
       <img className={styles.image} src={image} alt={name}/>

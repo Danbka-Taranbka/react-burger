@@ -2,7 +2,7 @@
   border: green solid 1px;
   display: flex;
   flex-direction: column;
-  align-content: start;
+  align-content: flex-start;
   width: 100%;
   gap: 24px;
   border-radius: 40px;

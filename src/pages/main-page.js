@@ -5,7 +5,6 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useDispatch, useSelector } from "react-redux";
 import OrderDetails from '../components/order-details/order-details';
-import IngredientDetails from '../components/ingredient-details/ingredient-details';
 import Modal from '../components/modal/modal';
 import {useEffect, useCallback} from "react";
 import { getIngredients } from '../services/actions';
@@ -25,10 +24,6 @@ export default function MainPage() {
 
   const orderSuccess = useSelector(
     (store) => store.order.orderSuccess
-  );
-
-  const ingredientModal = useSelector(
-    (store) => store.ingredientPopup.ingredientModal
   );
 
   const orderModal = useSelector(
