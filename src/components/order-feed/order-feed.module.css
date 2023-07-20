@@ -1,0 +1,5 @@
+.order__feed {
+  width: 584px;
+  max-height: 640px;
+  overflow-y: scroll;
+}

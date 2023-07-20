@@ -19,6 +19,9 @@ import { ProfilePage } from "../../pages/profile-page";
 import { ProfileForm } from "../profile-form/profile-form";
 import { ProfileOrders } from "../profile-orders/profile-orders";
 import { IngredientPage } from "../../pages/ingredient-page";
+import { OrderFeedPage } from "../../pages/order-feed-page";
+import { OrderInfoPage } from "../../pages/order-info-page";
+
 
 function App () {
     const dispatch = useDispatch();
@@ -41,10 +44,11 @@ function App () {
             <Route path="/" index element={<MainPage />}/>
             <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />}/>}>
               <Route index element={<ProfileForm/>}/>
-              <Route path="orders" element={<ProfileOrders/>}/>
+              <Route path="orders" element={<ProtectedRouteElement element={<ProfileOrders />}/>}/>
             </Route>
-            <Route path="/profile/orders"/>
-            <Route path="/profile/orders/:id"/>
+            <Route path="profile/orders/:id" element={<ProtectedRouteElement element={<OrderInfoPage/>}/>}/>
+            <Route path="/feed" element={<ProtectedRouteElement element={<OrderFeedPage/>}/>}/>
+            <Route path="/feed/:id" element={<ProtectedRouteElement element={<OrderInfoPage/>}/>}/>
           </Route>
         </Routes>
 
