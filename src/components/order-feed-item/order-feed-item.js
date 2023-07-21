@@ -5,23 +5,12 @@ import { IngredientIcon } from "../ingredient-icon/ingredient-icon";
 import { useSelector } from "react-redux";
 
 export const OrderItem = ({ order, extraClass, location}) => {
-  console.log(order)
+
   const orderIngredients = order.ingredients.slice(0, 6);
   const data = useSelector(store => store.ingredients.data);
- 
-  const totalPrice = order.ingredients.reduce(function (total, currentId) {
-    const currentIngredient = data.find(item => item._id === currentId);
-    return (currentIngredient.type === "bun"
-      ? total + currentIngredient.price*2
-      : total + currentIngredient.price)
-  }, 0);
 
-  const onOrderClick = () => {
-    console.log(order);
-  }
-
-  return (
-    <Link className={`${styles.order__item} ${extraClass}`} onClick={onOrderClick}
+  return (<>
+    {orderIngredients && data.length>0 && order.ingredients.length>0 && (<Link className={`${styles.order__item} ${extraClass}`}
     to={order._id} >
       <div className={`${styles.order__box}`}>
         <p className={`text text_type_digits-default`}>{`#${order.number}`}</p>
@@ -50,7 +39,7 @@ export const OrderItem = ({ order, extraClass, location}) => {
             return (
               <li key={index} className={styles.order__icon}>
                 <IngredientIcon
-                ingredientId={ingredient}
+                ingredient={ingredient}
                 amount={order.ingredients.length - 5}
                 index={index}
                 location={location}
@@ -59,8 +48,9 @@ export const OrderItem = ({ order, extraClass, location}) => {
             )
           })}
         </ul>
-        <p className={`${styles.order__price} text text_type_digits-default`}>{totalPrice} <CurrencyIcon/></p>
+       <p className={`${styles.order__price} text text_type_digits-default`}>{order.totalPrice}<CurrencyIcon/></p>
       </div>
-    </Link>
+    </Link>)}
+    </>
   )
 }

@@ -1,10 +1,6 @@
 import styles from "./ingredient-icon.module.css";
-import { useSelector } from "react-redux";
 
-export const IngredientIcon = ({ingredientId, amount, index, location}) => {
-
-  const ingredientsData = useSelector((store) => store.ingredients.data);
-  const ingredient = ingredientsData.filter(ingredient => ingredient._id === ingredientId)[0];
+export const IngredientIcon = ({ingredient, amount, index, location}) => {
   
   const iconStyle = 
  {

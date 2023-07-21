@@ -1,5 +1,5 @@
 import { getCookie, handleTokens } from "../../utils/utils";
-import Api from "../api/api";
+import Api from "../../api/api.js";
 
 const api = new Api();
 

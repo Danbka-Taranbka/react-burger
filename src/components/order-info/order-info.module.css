@@ -38,6 +38,7 @@
   align-items: center;
   display: flex;
   flex-direction: row;
+  gap: 16px;
 }
 
 .price {
@@ -45,8 +46,7 @@
   flex-direction: row;
   align-items: center;
   gap: 8px;
-  justify-self: end;
-  border: red solid 1px;
+  justify-self: flex-end;
 }
 
 .bottom {
@@ -62,4 +62,8 @@
   flex-direction: row;
   align-items: center;
   gap: 8px;
+}
+
+.name {
+  width: 65%;
 }

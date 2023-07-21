@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {useEffect} from "react";
 import { wsUserConnectionStart, wsUserConnectionClosed } from "../../services/actions/ws.js"; 
 import { getIngredients } from "../../services/actions";
+import { parseOrderIngredients } from "../../utils/utils";
 
 
 export const ProfileOrders = () => {
@@ -22,14 +23,16 @@ export const ProfileOrders = () => {
   }, [dispatch]);
 
   const data = useSelector((store) => store.ingredients.data);
-  const dataRequest = useSelector((store) => store.ingredients.dataRequest);
-  const dataFailed = useSelector((store) => store.ingredients.dataFailed);
   const orders = useSelector((store) => store.wsUser.orders);
-  console.log(orders);
+  
   return (
     <div className={`${styles.feed} custom-scroll`}>
-      {orders.length>0 && !dataRequest && !dataFailed && data.length &&
-      orders.map(order => {return (<OrderItem order={order} location={"profileOrders"}/>)})
+      {orders
+        .slice(0)
+        .reverse()
+        .map((order) => {
+          return (<OrderItem order={parseOrderIngredients(data, order)} key={order._id} location={"profileOrders"}/>)
+        })
       }
     </div>
   )

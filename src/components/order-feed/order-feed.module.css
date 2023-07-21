@@ -1,5 +1,8 @@
 .order__feed {
+  display: flex;
+  flex-direction: column;
   width: 584px;
   max-height: 640px;
   overflow-y: scroll;
+  gap: 16px;
 }

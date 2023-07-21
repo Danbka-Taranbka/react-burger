@@ -46,3 +46,34 @@ export function setCookie(name, value, props) {
 export function deleteCookie(name) {
   setCookie(name, null, { expires: -1 });
 }
+
+export function parseOrderIngredients(data, order) {
+  let updatedOrder = {};
+
+  const orderedIngredients = order.ingredients.reduce((prevVal, item) => {
+    let ingredient = data.find((ingredient) => ingredient._id === item);
+    const isIngredientRepeated = prevVal.findIndex(
+      (element) => element._id === ingredient._id
+    );
+    if (isIngredientRepeated >= 0) {
+      prevVal[isIngredientRepeated].counter++;
+    } else {
+      ingredient.counter = 1;
+      prevVal = [...prevVal, ingredient];
+    }
+
+    return prevVal;
+  }, []);
+
+  updatedOrder = {
+    ...order,
+    ingredients: orderedIngredients,
+  };
+
+  const totalPrice = orderedIngredients.reduce((prevVal, item) => {
+    return (prevVal = prevVal + item.price * item.counter);
+  }, 0);
+  updatedOrder.totalPrice = totalPrice;
+
+  return updatedOrder;
+}

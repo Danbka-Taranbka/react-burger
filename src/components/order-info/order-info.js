@@ -2,10 +2,12 @@ import styles from "./order-info.module.css";
 import { IngredientIcon } from "../ingredient-icon/ingredient-icon";
 import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 
+
 export const OrderInfo = ({order}) => {  
 
   return (
-    <div className={`${styles.box} mt-15`}>
+    <>
+   {order && ( <div className={`${styles.box} mt-15`}>
       <p className="text text_type_digits-default">{`#${order.number}`}</p>
       <div className={styles.info}>
         <h2 className="text text_type_main-medium">{order.name}</h2>
@@ -19,11 +21,11 @@ export const OrderInfo = ({order}) => {
               return (
                 <li key={index} className={`${styles.list__item} pl-3`}>
                   <IngredientIcon
-                ingredientId={ingredient}
+                ingredient={ingredient}
                 amount={order.ingredients.length - 5}
                 index={index}
                 />
-                  <p className="text text_type_main-default">
+                  <p className={`text text_type_main-default ${styles.name}`}>
                     {ingredient.name}
                   </p>
                   <p className={`text text_type_digits-default ${styles.price}`}>
@@ -44,6 +46,7 @@ export const OrderInfo = ({order}) => {
           <CurrencyIcon type="primary" />
         </div>
       </div>
-    </div>
+    </div>)}
+    </>
   )
 }

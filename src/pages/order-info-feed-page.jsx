@@ -6,13 +6,13 @@ import { wsUserConnectionStart, wsUserConnectionClosed } from "../services/actio
 import { getIngredients } from "../services/actions";
 import { parseOrderIngredients } from "../utils/utils";
 
-export const OrderInfoPage = ({wsRoute}) => {
+export const OrderInfoFeedPage = ({wsRoute}) => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
 
   const orders = useSelector(wsRoute);
-  const data = useSelector((store) => store.ingredients.data)
+  const data = useSelector((store) => store.ingredients.data);
 
   useEffect(() => {
     dispatch(wsUserConnectionStart());
@@ -27,7 +27,7 @@ export const OrderInfoPage = ({wsRoute}) => {
   }, [dispatch]);
 
 
-  const currentOrder = orders.find((item) => {
+  const currentOrder = orders.orders.find((item) => {
     return item._id === id;
   })
 

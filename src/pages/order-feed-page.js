@@ -31,8 +31,8 @@ export const OrderFeedPage = () => {
     <div>
       <h1 className={`${styles.order__feed__title} text text_type_main-large mb-5`} onClick={() => {console.log(orders);}}>Лента заказов</h1>
       <div className={styles.main}>
-        <OrderFeed ordersList={orders}/>
-        <OrderFeedStats total={total} totalToday={totalToday} orders={orders}/>
+        {orders && <OrderFeed ordersList={orders} data={data}/>}
+        {orders && totalToday && orders && <OrderFeedStats total={total} totalToday={totalToday} orders={orders}/>}
       </div>
     </div>
   )
