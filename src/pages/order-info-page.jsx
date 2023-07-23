@@ -9,7 +9,7 @@ export const OrderInfoPage = ({wsRoute}) => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
-
+  console.log(id)
   const orders = useSelector(wsRoute);
   const data = useSelector((store) => store.ingredients.data)
 

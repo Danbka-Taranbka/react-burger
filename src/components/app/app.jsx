@@ -49,7 +49,7 @@ function App () {
             </Route>
             <Route path="profile/orders/:id" element={<ProtectedRouteElement element={<OrderInfoPage wsRoute={(store) => store.wsUser.orders}/>}/>}/>
             <Route path="/feed" element={<ProtectedRouteElement element={<OrderFeedPage/>}/>}/>
-            <Route path="/feed/:id" element={<ProtectedRouteElement element={<OrderInfoFeedPage wsRoute={(store) => store.wsFeed.orders}/>}/>}/>
+            <Route path="feed/:id" element={<ProtectedRouteElement element={<OrderInfoFeedPage wsRoute={(store) => store.wsFeed.orders}/>}/>}/>
           </Route>
         </Routes>
 

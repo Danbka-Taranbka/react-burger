@@ -7,10 +7,8 @@ import { parseOrderIngredients } from "../utils/utils";
 
 export const OrderInfoFeedPage = ({wsRoute}) => {
   const { id } = useParams();
-
-  const [currentOrder, setCurrentOrder] = useState();
-
   const dispatch = useDispatch();
+  const [currentOrder, setCurrentOrder] = useState(null);
 
   const orders = useSelector(wsRoute);
   const data = useSelector((store) => store.ingredients.data);
@@ -24,17 +22,19 @@ export const OrderInfoFeedPage = ({wsRoute}) => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (orders) {
+    if (orders.orders) {
       setCurrentOrder(
-        orders.orders.find((order) => {
-          return order._id === id;
-        })
-      );
+        orders.orders.find((item) => {
+          return item.number === Number(id);
+      })
+      ) 
     }
-  }, [orders, id]);
+  }, [orders, id])
+
+  console.log(currentOrder)
 
     return (<>
-        {currentOrder && orders && (<OrderInfo order={parseOrderIngredients(data, currentOrder)}/>)}
+        {orders && id && currentOrder && data.length && (<OrderInfo order={parseOrderIngredients(data, currentOrder)}/>)}
         </>
  )
 }

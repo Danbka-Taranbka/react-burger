@@ -8,10 +8,12 @@ export const OrderItem = ({ order, extraClass, location}) => {
 
   const orderIngredients = order.ingredients.slice(0, 6);
   const data = useSelector(store => store.ingredients.data);
-
+  
   return (<>
     {orderIngredients && data.length>0 && order.ingredients.length>0 && (<Link className={`${styles.order__item} ${extraClass}`}
-    to={order._id} >
+    to={location==="profileOrders"
+    ? order._id
+    : `${order.number}`} >
       <div className={`${styles.order__box}`}>
         <p className={`text text_type_digits-default`}>{`#${order.number}`}</p>
         <p className={`text text_type_digits-default text_color_inactive`}>

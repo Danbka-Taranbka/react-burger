@@ -4,7 +4,6 @@ import { parseOrderIngredients } from "../../utils/utils";
 
 
 export const OrderFeed = ({ordersList, data, location}) => {
-
   return (
     <div className={`${styles.order__feed} custom-scroll`}>
       {ordersList
