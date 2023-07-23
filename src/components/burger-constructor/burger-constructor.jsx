@@ -8,11 +8,11 @@ import { createOrder,
   updateIngredientCounterAction,
   setBunItemAction,
   updateBunCounterAction
-} from '../../services/actions/index.js';
-import { UPDATE_TOTAL_PRICE } from '../../services/actions/index.js';
-import { UPDATE_CONSTRUCTOR_EMPTINESS } from '../../services/actions/order.js';
+} from '../../services/actions/index';
+import { UPDATE_TOTAL_PRICE } from '../../services/actions/index';
+import { UPDATE_CONSTRUCTOR_EMPTINESS } from '../../services/actions/order';
 import { useDrop } from "react-dnd/dist/hooks";
-import {ConstructorItem} from "../constructor-item/constructor-item.js";
+import {ConstructorItem} from "../constructor-item/constructor-item";
 import { useNavigate } from 'react-router-dom';
 
 

@@ -3,7 +3,6 @@ import {  useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect} from "react";
 import { wsUserConnectionStart, wsUserConnectionClosed } from "../services/actions/ws";
-import { getIngredients } from "../services/actions";
 import { parseOrderIngredients } from "../utils/utils";
 
 export const OrderInfoPage = ({wsRoute}) => {
@@ -21,11 +20,6 @@ export const OrderInfoPage = ({wsRoute}) => {
       dispatch(wsUserConnectionClosed());
     };
   }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
-
 
   const currentOrder = orders.find((item) => {
     return item._id === id;

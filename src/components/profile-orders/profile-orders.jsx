@@ -3,7 +3,6 @@ import { OrderItem } from "../order-feed-item/order-feed-item";
 import { useDispatch, useSelector } from "react-redux";
 import {useEffect} from "react";
 import { wsUserConnectionStart, wsUserConnectionClosed } from "../../services/actions/ws.js"; 
-import { getIngredients } from "../../services/actions";
 import { parseOrderIngredients } from "../../utils/utils";
 
 
@@ -16,10 +15,6 @@ export const ProfileOrders = () => {
     return () => {
       dispatch(wsUserConnectionClosed());
     };
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(getIngredients());
   }, [dispatch]);
 
   const data = useSelector((store) => store.ingredients.data);
