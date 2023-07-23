@@ -31,8 +31,6 @@ export const OrderInfoFeedPage = ({wsRoute}) => {
     }
   }, [orders, id])
 
-  console.log(currentOrder)
-
     return (<>
         {orders && id && currentOrder && data.length && (<OrderInfo order={parseOrderIngredients(data, currentOrder)}/>)}
         </>
