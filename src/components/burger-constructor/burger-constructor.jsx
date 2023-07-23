@@ -41,13 +41,15 @@ function BurgerConstructor () {
   };
 
   const confirmOrder = useCallback(() =>{
-    if (localStorage.getItem("isAuth") && chosenBun) {
+    if (localStorage.getItem("isAuth") &&  Object.keys(chosenBun).length!==0) {
       const orderList = [
+        chosenBun._id,
         ingredientsList.map((ingredient) => {
           return ingredient._id;
         }),
-        Object.keys(chosenBun).length === 0 ? [] : chosenBun._id,
+        chosenBun._id
       ].flatMap((i) => i);
+      console.log(orderList)
       dispatch(createOrder(orderList));
     } else {
       navigate("/login");
