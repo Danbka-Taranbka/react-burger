@@ -15,6 +15,8 @@ import {
   WS_USER_CONNECTION_ERROR,
   WS_USER_CONNECTION_CLOSED,
   WS_GET_USER_ORDERS,
+  WS_DISCONNECT,
+  WS_USER_DISCONNECT
 } from "./actions/ws";
 
 const wsUrl = "wss://norma.nomoreparties.space/orders/all";
@@ -27,6 +29,7 @@ const wsActions = {
   onClose: WS_CONNECTION_CLOSED,
   onError: WS_CONNECTION_ERROR,
   onMessage: WS_GET_FEED,
+  wsDisconnect: WS_DISCONNECT
 };
 
 const wsUserActions = {
@@ -36,6 +39,7 @@ const wsUserActions = {
   onClose: WS_USER_CONNECTION_CLOSED,
   onError: WS_USER_CONNECTION_ERROR,
   onMessage: WS_GET_USER_ORDERS,
+  wsDisconnect: WS_USER_DISCONNECT
 };
 
 const composeEnhancers =

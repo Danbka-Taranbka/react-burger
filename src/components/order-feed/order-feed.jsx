@@ -4,8 +4,9 @@ import { parseOrderIngredients } from "../../utils/utils";
 
 
 export const OrderFeed = ({ordersList, data, location}) => {
-  return (
-    <div className={`${styles.order__feed} custom-scroll`}>
+  return (<>
+    {ordersList && 
+    (<div className={`${styles.order__feed} custom-scroll`}>
       {ordersList
         .slice(0)
         .reverse()
@@ -13,6 +14,7 @@ export const OrderFeed = ({ordersList, data, location}) => {
           return (<OrderItem order={parseOrderIngredients(data, order)} key={order._id} location={location}/>)
         })
       }
-    </div>
+    </div>)}
+    </>
   )
 }

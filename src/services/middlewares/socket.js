@@ -10,7 +10,7 @@ export const socketMiddleware = (wsUrl, wsActions, user) => {
     return (next) => (action) => {
       const { dispatch } = store;
       const { type } = action;
-      const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
+      const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage, wsDisconnect } = wsActions;
 
       if (type === wsInit) {
         if (user) {
@@ -46,11 +46,14 @@ export const socketMiddleware = (wsUrl, wsActions, user) => {
 
         socket.onclose = (event) => {
           if (socket) {
-            socket.close();
-            socket = null;
             dispatch({ type: onClose, payload: event });
           }
         };
+
+        if (type === wsDisconnect) {
+            socket.close();
+            socket = null;
+        }
       }
 
       next(action);

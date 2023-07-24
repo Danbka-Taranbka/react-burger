@@ -2,7 +2,7 @@ import { OrderInfo } from "../components/order-info/order-info"
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { wsFeedConnectionStart, wsFeedConnectionClosed } from "../services/actions/ws";
+import { wsFeedConnectionStart, wsFeedDisconnect } from "../services/actions/ws";
 import { parseOrderIngredients } from "../utils/utils";
 
 export const OrderInfoFeedPage = ({wsRoute}) => {
@@ -17,7 +17,7 @@ export const OrderInfoFeedPage = ({wsRoute}) => {
     dispatch(wsFeedConnectionStart());
 
     return () => {
-      dispatch(wsFeedConnectionClosed());
+      dispatch(wsFeedDisconnect());
     };
   }, [dispatch]);
 

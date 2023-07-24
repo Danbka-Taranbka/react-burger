@@ -29,13 +29,13 @@ export const OrderFeedStats = ({orders, total, totalToday}) => {
         <div className={styles.status}>
           <h3 className={`${styles.title} text text_type_main-medium mb-4`}>Готовы:</h3>
           {done && 
-            done.map(item => {return (<p className={`${styles.order__number} text text_type_digits-default`}>{item}</p>)})
+            done.map(item => {return (<p className={`${styles.order__number} text text_type_digits-default`} key={item}>{item}</p>)})
           }
         </div>
         <div className={styles.status}>
           <h3 className={`${styles.title} text text_type_main-medium mb-4`}>В работе:</h3>
           {pending && 
-            pending.map(item => {return (<p className={`${styles.order__number} text text_type_digits-default`}>{item}</p>)})
+            pending.map(item => {return (<p className={`${styles.order__number} text text_type_digits-default`} key={item}>{item}</p>)})
           }
         </div>
       </div>

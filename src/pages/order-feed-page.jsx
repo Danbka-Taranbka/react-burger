@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { OrderFeed } from "../components/order-feed/order-feed";
 import { OrderFeedStats } from "../components/order-feed-stats/order-feed-stats";
-import { wsFeedConnectionStart, wsFeedConnectionClosed } from "../services/actions/ws";
+import { wsFeedConnectionStart, wsFeedDisconnect } from "../services/actions/ws";
 
 
 export const OrderFeedPage = () => {
@@ -16,7 +16,7 @@ export const OrderFeedPage = () => {
     dispatch(wsFeedConnectionStart());
 
     return () => {
-      dispatch(wsFeedConnectionClosed());
+      dispatch(wsFeedDisconnect());
     };
   }, [dispatch]);
 
@@ -24,8 +24,8 @@ export const OrderFeedPage = () => {
     <div>
       <h1 className={`${styles.order__feed__title} text text_type_main-large mb-5`} onClick={() => {console.log(orders);}}>Лента заказов</h1>
       <div className={styles.main}>
-        {orders && <OrderFeed ordersList={orders} data={data}/>}
-        {orders && totalToday && orders && <OrderFeedStats total={total} totalToday={totalToday} orders={orders}/>}
+        {orders && data && <OrderFeed ordersList={orders} data={data}/>}
+        {orders && totalToday && total && <OrderFeedStats total={total} totalToday={totalToday} orders={orders}/>}
       </div>
     </div>
   )

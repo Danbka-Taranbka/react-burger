@@ -58,7 +58,7 @@
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer" + getCookie("token"),
+        Authorization: "Bearer " + getCookie("token"),
       },
       body: JSON.stringify({
         ingredients: ingredientsList,
