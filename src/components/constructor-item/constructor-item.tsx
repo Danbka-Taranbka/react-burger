@@ -3,23 +3,23 @@ import { useDrag, useDrop } from "react-dnd";
 import styles from "./constructor-item.module.css";
 import { useDispatch } from "react-redux";
 import {  SORT_DRAGGING_ITEM, removeConstructorItemAction, updateIngredientCounterAction} from "../../services/actions/index.js";
-import { useRef } from "react";
-import { ingredientPropTypes } from '../../utils/config';
-import PropTypes from 'prop-types';
+import { useRef, FC } from "react";
+import { TConstructorItem } from "../../utils/types";
 
-export const ConstructorItem = ({ingredient, type, index}) => {
+export const ConstructorItem: FC<TConstructorItem> = ({ingredient, type, index}) => {
   const dispatch = useDispatch();
   const ref = useRef(null);
   const id = ingredient._id;
-  const removeIngredient = (uniqueId, itemId) => {
+  const removeIngredient = (uniqueId: any, itemId: string) => {
     dispatch(removeConstructorItemAction(uniqueId));
     dispatch(updateIngredientCounterAction(itemId))
   };
 
   const [, drop] = useDrop({
     accept: "ingredient",
-    hover(item, monitor) {
+    hover(item: TConstructorItem, monitor) {
       if (!ref.current) {
+        console.log(item);
         return;
       }
       const dragIndex = item.index;
@@ -60,7 +60,6 @@ export const ConstructorItem = ({ingredient, type, index}) => {
     <li ref={ref} key={ingredient.uniqueId} className={styles.listItem}>
       <DragIcon type="primary" />
       <ConstructorElement
-      index={index}
         key={ingredient._id}
         text={ingredient.name}
         price={ingredient.price}
@@ -71,10 +70,4 @@ export const ConstructorItem = ({ingredient, type, index}) => {
       />
     </li>
   )
-}
-
-ConstructorItem.propTypes = {
-  ingredient: ingredientPropTypes.isRequired,
-  type: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
 }

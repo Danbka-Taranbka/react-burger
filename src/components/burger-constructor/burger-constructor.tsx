@@ -15,6 +15,8 @@ import { useDrop } from "react-dnd/dist/hooks";
 import {ConstructorItem} from "../constructor-item/constructor-item";
 import { useNavigate } from 'react-router-dom';
 
+import { TIngredient, TItemId } from '../../utils/types';
+
 
 function BurgerConstructor () {
   const navigate = useNavigate();
@@ -29,12 +31,12 @@ function BurgerConstructor () {
     (store) => store.order.orderRequest
   );
 
-  const changeBun = (bun) => {
+  const changeBun = (bun: TItemId) => {
     dispatch(setBunItemAction(bun._id));
     dispatch(updateBunCounterAction(bun._id));
   }
 
-  const addIngredient = (ingredient) => {
+  const addIngredient = (ingredient: TItemId) => {
     const uuid = uuidv4();
     dispatch(addConstructorItemAction(ingredient._id, uuid));
     dispatch(updateIngredientCounterAction(ingredient._id));
@@ -44,7 +46,7 @@ function BurgerConstructor () {
     if (localStorage.getItem("isAuth") &&  Object.keys(chosenBun).length!==0) {
       const orderList = [
         chosenBun._id,
-        ingredientsList.map((ingredient) => {
+        ingredientsList.map((ingredient: TIngredient) => {
           return ingredient._id;
         }),
         chosenBun._id
@@ -69,7 +71,7 @@ function BurgerConstructor () {
 
   const [, dropTarget] = useDrop({
     accept: ["ingredient", "bun" ],
-    drop(itemId) {
+    drop(itemId: TItemId) {
       if (itemId.type === "ingredient") {
         addIngredient(itemId);
       } else if (itemId.type === "bun" &&( itemId !== chosenBun || Object.keys(chosenBun).length === 0)) {
@@ -95,7 +97,8 @@ function BurgerConstructor () {
             <ConstructorElement thumbnail={chosenBun.image} text={`${chosenBun.name} (верх)`} price={chosenBun.price} isLocked={true} type="top"/>
           </li>}
           <ul className={`custom-scroll ${styles.list}`}>
-            {ingredientsList.map((ingredient, index) => {
+            {ingredientsList.map((ingredient: TIngredient, index: number) => {
+              console.log(ingredient)
               return (
                 <ConstructorItem
                 key={ingredient.uniqueId}

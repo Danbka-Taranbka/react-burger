@@ -1,10 +1,14 @@
 import styles from "./order-info.module.css";
 import { IngredientIcon } from "../ingredient-icon/ingredient-icon";
 import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FC } from "react";
+import { TUpdatedOrder } from "../../utils/utils";
 
+export type TOrderInfo = {
+  order: TUpdatedOrder;
+};
 
-export const OrderInfo = ({order}) => {  
-
+export const OrderInfo: FC<TOrderInfo> = ({order}) => {
   return (
     <>
    {order && ( <div className={`${styles.box} mt-15`}>

@@ -1,4 +1,4 @@
-import Api from "../../api/api";
+import { getOrderId } from "../../api/api";
 
 export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST";
 export const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS";
@@ -8,10 +8,8 @@ export const TOGGLE_ORDER_MODAL = "TOGGLE_ORDER_MODAL";
 export const CLEAR_CONSTRUCTOR = "CLEAR_CONSTRUCTOR";
 export const RESET_COUNTERS = "RESET_COUNTERS";
 
-const api = new Api();
-
-export function createOrder(ingredientsList) {
-  return function (dispatch) {
+export function createOrder(ingredientsList: Array<string>) {
+  return function (dispatch: any) {
     if (ingredientsList.length === 0) {
       dispatch({ type: UPDATE_CONSTRUCTOR_EMPTINESS, payload: true });
       return;
@@ -19,8 +17,7 @@ export function createOrder(ingredientsList) {
     dispatch({
       type: GET_ORDER_REQUEST,
     });
-    api
-      .getOrderId(ingredientsList)
+      getOrderId(ingredientsList)
       .then((res) => {
         dispatch({
           type: GET_ORDER_SUCCESS,

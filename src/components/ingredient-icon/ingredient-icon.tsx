@@ -1,6 +1,8 @@
 import styles from "./ingredient-icon.module.css";
+import {FC} from "react";
+import { TIngredientIcon } from "../../utils/types";
 
-export const IngredientIcon = ({ingredient, amount, index, location}) => {
+export const IngredientIcon: FC<TIngredientIcon> = ({ingredient, amount, index, location}) => {
   
   const iconStyle = 
  {

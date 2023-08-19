@@ -3,14 +3,21 @@ import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burge
 import { Link } from "react-router-dom";
 import { IngredientIcon } from "../ingredient-icon/ingredient-icon";
 import { useSelector } from "react-redux";
+import { FC } from "react";
+import { TUpdatedOrder } from "../../utils/utils";
 
-export const OrderItem = ({ order, extraClass, location}) => {
+type TOrderItem = {
+  order: TUpdatedOrder;
+  location?: "profileOrders";
+};
+
+export const OrderItem: FC<TOrderItem> = ({ order, location}) => {
 
   const orderIngredients = order.ingredients.slice(0, 6);
   const data = useSelector(store => store.ingredients.data);
   
   return (<>
-    {orderIngredients && data.length>0 && order.ingredients.length>0 && (<Link className={`${styles.order__item} ${extraClass}`}
+    {orderIngredients && data.length>0 && order.ingredients.length>0 && (<Link className={`${styles.order__item}`}
     to={location==="profileOrders"
     ? order._id
     : `${order.number}`} >
@@ -50,7 +57,7 @@ export const OrderItem = ({ order, extraClass, location}) => {
             )
           })}
         </ul>
-       <p className={`${styles.order__price} text text_type_digits-default`}>{order.totalPrice}<CurrencyIcon/></p>
+       <p className={`${styles.order__price} text text_type_digits-default`}>{order.totalPrice}<CurrencyIcon type="primary"/></p>
       </div>
     </Link>)}
     </>

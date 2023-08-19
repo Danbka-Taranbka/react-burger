@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styles from './pages.module.css';
 import { Form } from "../components/form/form";
 import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -12,11 +12,11 @@ export const ForgotPasswordPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onChange = e => {
-    setValue(e.target.value);
+  const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setValue(e.currentTarget.value);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     dispatch(forgotPassword(value))
     .then(() => {

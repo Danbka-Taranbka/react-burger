@@ -1,11 +1,15 @@
 import { OrderInfo } from "../components/order-info/order-info"
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useState, FC } from "react";
 import { wsFeedConnectionStart, wsFeedDisconnect } from "../services/actions/ws";
 import { parseOrderIngredients } from "../utils/utils";
 
-export const OrderInfoFeedPage = ({wsRoute}) => {
+export type TOrderInfoFeedPage = {
+  
+}
+
+export const OrderInfoFeedPage: FC = ({wsRoute}) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [currentOrder, setCurrentOrder] = useState(null);

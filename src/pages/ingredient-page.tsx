@@ -1,7 +1,7 @@
-import IngredientDetails from "../components/ingredient-details/ingredient-details";
+import { IngredientDetails } from "../components/ingredient-details/ingredient-details";
 import { useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Modal from "../components/modal/modal";
+import { Modal } from "../components/modal/modal";
 import { useSelector } from "react-redux";
 
 export const IngredientPage = () => {

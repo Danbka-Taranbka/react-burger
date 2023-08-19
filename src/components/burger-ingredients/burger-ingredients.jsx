@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
 import styles from './burger-ingredients.module.css';
-import IngredientsCategory from '../ingredients-category/ingredients-category';
-import TabMenu from '../tab-menu/tab-menu';
+import { IngredientsCategory } from '../ingredients-category/ingredients-category';
+import { TabMenu } from '../tab-menu/tab-menu';
 import {useRef, useState} from 'react'
 
 
@@ -44,10 +43,6 @@ function BurgerIngredients ({openIngredient}) {
       </ul>
     </div>
   )
-}
-
-BurgerIngredients.propTypes = {
-  openIngredient: PropTypes.func.isRequired,
 }
 
 export default BurgerIngredients;

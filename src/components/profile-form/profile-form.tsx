@@ -18,11 +18,11 @@ export const ProfileForm = () => {
   const [isChanging, setChanging] = useState(false);
   const [isFocus, setFocus] = useState(true);
 
-  const onChange = e => {
-    setFormValue({ ...form, [e.target.name]: e.target.value });
+  const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setFormValue({ ...form, [e.currentTarget.name]: e.currentTarget.value });
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     dispatch(updateUserInfo(form)).then(() => {
       setChanging(false);

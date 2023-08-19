@@ -1,9 +1,14 @@
+import { TOrder } from "../../utils/types";
 import styles from "./order-feed-stats.module.css";
-import {useMemo} from "react";
+import {useMemo, FC} from "react";
 
+export type TStats = {
+  orders: TOrder[];
+  total: number;
+  totalToday: number;
+};
 
-export const OrderFeedStats = ({orders, total, totalToday}) => {
-
+export const OrderFeedStats: FC<TStats> = ({orders, total, totalToday}) => {
 
   const done = useMemo(() => {
     return orders

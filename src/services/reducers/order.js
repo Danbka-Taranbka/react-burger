@@ -4,7 +4,7 @@ import {
   GET_ORDER_FAILED,
   UPDATE_CONSTRUCTOR_EMPTINESS,
   TOGGLE_ORDER_MODAL
-} from "../actions/order.js";
+} from "../actions/order.tsx";
 
 const initialState = {
   orderInfo: {},

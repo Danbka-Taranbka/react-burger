@@ -1,9 +1,10 @@
 import styles from './ingredients-category.module.css';
-import IngredientItem from '../ingredient-item/ingredient-item';
-import PropTypes from 'prop-types';
+import {IngredientItem} from '../ingredient-item/ingredient-item';
 import { useSelector } from 'react-redux';
+import { FC } from "react";
+import { TIngredientsCategory } from '../../utils/types';
 
-function IngredientsCategory ({title, type, openIngredient, dragType}) {
+export const IngredientsCategory: FC<TIngredientsCategory> = ({title, type, openIngredient, dragType}) => {
   
   const ingredientsList = useSelector((store) => store.ingredients.data)
   
@@ -18,13 +19,3 @@ function IngredientsCategory ({title, type, openIngredient, dragType}) {
     </div>
   )
 }
-
-IngredientsCategory.propTypes = {
-  title: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  openIngredient: PropTypes.func.isRequired,
-  dragType: PropTypes.string.isRequired
-}
-
-
-export default IngredientsCategory;

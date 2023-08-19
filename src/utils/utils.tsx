@@ -1,3 +1,7 @@
+import { TOrder, TIngredient } from "./types";
+
+export type TUpdatedOrder = Omit<TOrder, "ingredients"> & {ingredients: TIngredient[]; totalPrice: number}
+
 export function handleTokens(data) {
   localStorage.setItem("refreshToken", data.refreshToken);
   let authToken;
@@ -9,7 +13,7 @@ export function handleTokens(data) {
   }
 }
 
-export function getCookie(name) {
+export function getCookie(name: string) {
   const matches = document.cookie.match(
     new RegExp(
       "(?:^|; )" +
@@ -20,7 +24,7 @@ export function getCookie(name) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function setCookie(name, value, props) {
+export function setCookie(name: string, value: string, props) {
   props = props || {};
   let exp = props.expires;
   if (typeof exp == "number" && exp) {
@@ -43,17 +47,16 @@ export function setCookie(name, value, props) {
   document.cookie = updatedCookie;
 }
 
-export function deleteCookie(name) {
+export function deleteCookie(name: string) {
   setCookie(name, null, { expires: -1 });
 }
 
-export function parseOrderIngredients(data, order) {
-  let updatedOrder = {};
-
-  const orderedIngredients = order.ingredients.reduce((prevVal, item) => {
+export const parseOrderIngredients = (data: TIngredient[], order: TOrder) => {
+  let updatedOrder: TUpdatedOrder;
+  const orderedIngredients = order.ingredients.reduce((prevVal: any, item) => {
     let ingredient = data.find((ingredient) => ingredient._id === item);
     const isIngredientRepeated = prevVal.findIndex(
-      (element) => element._id === ingredient._id
+      (element: TIngredient) => element._id === ingredient._id
     );
     if (isIngredientRepeated >= 0) {
       prevVal[isIngredientRepeated].counter++;
@@ -65,15 +68,16 @@ export function parseOrderIngredients(data, order) {
     return prevVal;
   }, []);
 
+
+  const totalPrice = orderedIngredients.reduce((prevVal: number, item: TIngredient) => {
+    return (prevVal = prevVal + item.price * item.counter);
+  }, 0);
+  
   updatedOrder = {
     ...order,
     ingredients: orderedIngredients,
+    totalPrice: totalPrice,
   };
-
-  const totalPrice = orderedIngredients.reduce((prevVal, item) => {
-    return (prevVal = prevVal + item.price * item.counter);
-  }, 0);
-  updatedOrder.totalPrice = totalPrice;
 
   return updatedOrder;
 }

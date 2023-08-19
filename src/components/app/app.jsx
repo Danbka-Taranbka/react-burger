@@ -2,13 +2,8 @@ import { useEffect } from "react";
 import appStyles from './app.module.css';
 import { Route, Routes, useLocation } from "react-router-dom";
 import { ProtectedRouteElement } from "../protected-route";
-
-
 import { useDispatch } from "react-redux";
-
-
 import { getIngredients } from '../../services/actions/index.js';
-
 import { RegistrationPage } from "../../pages/registration-page";
 import { LoginPage } from "../../pages/login-page";
 import { ForgotPasswordPage } from "../../pages/forgot-password-page";
@@ -22,7 +17,6 @@ import { IngredientPage } from "../../pages/ingredient-page";
 import { OrderFeedPage } from "../../pages/order-feed-page";
 import { OrderInfoPage } from "../../pages/order-info-page";
 import { OrderInfoFeedPage } from "../../pages/order-info-feed-page";
-
 
 function App () {
     const dispatch = useDispatch();
@@ -48,8 +42,8 @@ function App () {
               <Route path="orders" element={<ProtectedRouteElement element={<ProfileOrders />}/>}/>
             </Route>
             <Route path="profile/orders/:id" element={<ProtectedRouteElement element={<OrderInfoPage wsRoute={(store) => store.wsUser.orders}/>}/>}/>
-            <Route path="/feed" element={<ProtectedRouteElement element={<OrderFeedPage/>}/>}/>
-            <Route path="feed/:id" element={<ProtectedRouteElement element={<OrderInfoFeedPage wsRoute={(store) => store.wsFeed.orders}/>}/>}/>
+            <Route path="/feed" element={<OrderFeedPage/>}/>
+            <Route path="feed/:id" element={<OrderInfoFeedPage wsRoute={(store) => store.wsFeed.orders}/>}/>
           </Route>
         </Routes>
 

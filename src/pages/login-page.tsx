@@ -13,12 +13,12 @@ export const LoginPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const onChange = e => {
-    setValue({ ...form, [e.target.name]: e.target.value });
+  const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setValue({ ...form, [e.currentTarget.name]: e.currentTarget.value });
   };
 
   const onSubmit = useCallback(
-    (e) => {
+    (e: React.SyntheticEvent) => {
       e.preventDefault();
       dispatch(loginUser(form)).then(() => {
         if (location.state !== null && location.state.from) {
@@ -35,7 +35,7 @@ export const LoginPage = () => {
     <Form title='Вход' onSubmit={onSubmit} name="loginForm">
       <EmailInput
         onChange={onChange}
-        value={form.value}
+        value={form.email}
         name={'email'}
         placeholder="Логин"
         isIcon={false}

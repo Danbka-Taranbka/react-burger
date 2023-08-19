@@ -1,4 +1,4 @@
-import Api from "../../api/api";
+import { forgotPass, resetPass, newUser, getUser, updateUser, login, logout } from "../../api/api";
 import { deleteCookie, handleTokens } from "../../utils/utils";
 
 export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST";
@@ -30,15 +30,12 @@ export const LOGOUT_FAILED = "LOGOUT_FAILED";
 
 export const CLEAR_USER = "CLEAR_USER";
 
-const api = new Api();
-
 export function forgotPassword(email) {
   return function (dispatch) {
     dispatch({
       type: FORGOT_PASSWORD_REQUEST,
     });
-    return api
-      .forgotPassword(email)
+      forgotPass(email)
       .then(() => {
         dispatch({
           type: FORGOT_PASSWORD_SUCCESS,
@@ -58,8 +55,7 @@ export function resetPassword(newPassword, token) {
     dispatch({
       type: RESET_PASSWORD_REQUEST,
     });
-    return api
-      .resetPassword(newPassword, token)
+      resetPass(newPassword, token)
       .then((res) => {
         if (res.success) {
           dispatch({
@@ -82,8 +78,7 @@ export function createUser(form) {
     dispatch({
       type: CREATE_USER_REQUEST,
     });
-    return api
-      .createUser(form)
+      newUser(form)
       .then((res) => {
         dispatch({
           type: CREATE_USER_SUCCESS,
@@ -100,8 +95,7 @@ export function createUser(form) {
 
 export function getUserInfo() {
   return function (dispatch) {
-    api
-      .getUserInfo()
+      getUser()
       .then((res) => {
         dispatch({
           type: UPDATE_USER,
@@ -119,8 +113,7 @@ export function updateUserInfo(userNewInfo) {
     dispatch({
       type: UPDATE_USER_REQUEST,
     });
-    return api
-      .updateUserInfo(userNewInfo)
+      updateUser(userNewInfo)
       .then((res) => {
         dispatch({
           type: UPDATE_USER,
@@ -144,8 +137,7 @@ export function loginUser(form) {
     dispatch({
       type: LOGIN_REQUEST,
     });
-    return api
-      .loginUser(form)
+      login(form)
       .then((res) => {
         handleTokens(res);
         localStorage.setItem(IS_AUTH, true);
@@ -174,8 +166,7 @@ export function logoutUser() {
     dispatch({
       type: LOGOUT_REQUEST,
     });
-    return api
-      .logoutUser()
+      logout()
       .then((res) => {
         if (res.success) {
           dispatch({

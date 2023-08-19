@@ -7,7 +7,7 @@ import {
 } from "./constructor.js";
 
 import { getIngredients } from "./ingredients.js";
-import { createOrder, toggleOrderInfoAction, clearConstructorAction, resetCountersAction } from "./order.js";
+import { createOrder, toggleOrderInfoAction, clearConstructorAction, resetCountersAction } from "./order.tsx";
 
 import { setCurrentIngredientAction,
   clearCurrentIngredientAction } from "./ingredientPopup.js";

@@ -1,8 +1,8 @@
 import styles from './ingredient-details.module.css';
+import { TIngredient } from '../../utils/types';
 
-
-export default function IngredientDetails ({ data }) {
-  const detailsItem = (text, detail) => {
+export const IngredientDetails = ( data: TIngredient ) => {
+  const detailsItem = (text: string, detail: number) => {
    return (
     <div className={`${styles.info}`}>
        <p className={`text text_type_main-small text_color_inactive mb-2`}>{text}</p>

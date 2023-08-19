@@ -6,7 +6,7 @@ import {
 import {
   CLEAR_CONSTRUCTOR,
   RESET_COUNTERS,
-} from "../actions/order.js"
+} from "../actions/order.tsx"
 
 import {
   GET_INGREDIENT_REQUEST,

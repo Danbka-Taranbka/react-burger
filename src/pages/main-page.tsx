@@ -5,10 +5,11 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useDispatch, useSelector } from "react-redux";
 import OrderDetails from '../components/order-details/order-details';
-import Modal from '../components/modal/modal';
+import {Modal} from '../components/modal/modal';
 import { useCallback } from "react";
 import { openIngredientInfoAction, toggleIngredientInfoAction } from '../services/actions/ingredientPopup';
 import { toggleOrderInfoAction, clearConstructorAction, resetCountersAction } from '../services/actions';
+import { TIngredient } from '../utils/types';
 
 export default function MainPage() {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ export default function MainPage() {
   
 
   const openIngredient = useCallback(
-    (item) => {
+    (item: TIngredient) => {
       dispatch(openIngredientInfoAction(item));
       dispatch(toggleIngredientInfoAction());
     },

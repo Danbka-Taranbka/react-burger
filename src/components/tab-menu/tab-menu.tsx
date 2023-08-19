@@ -1,8 +1,14 @@
-import PropTypes from 'prop-types';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./tab-menu.module.css";
+import { FC } from "react";
 
-const TabMenu = ({refs, setCurrent, current}) => {
+export type TTabMenu = {
+  current: "buns" | "sauces" | "main";
+  refs: {};
+  setCurrent: Function;
+}
+
+export const TabMenu: FC<TTabMenu> = ({refs, setCurrent, current}) => {
   
   const onTabClick = (ref) => {
     const elmnt = ref;
@@ -27,11 +33,3 @@ const TabMenu = ({refs, setCurrent, current}) => {
       </div>
     )
   }
-
-  TabMenu.propTypes = {
-    refs: PropTypes.object.isRequired,
-    setCurrent: PropTypes.func.isRequired,
-    current: PropTypes.string.isRequired,
-  }
-
-export default TabMenu;

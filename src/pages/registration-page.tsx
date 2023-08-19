@@ -11,8 +11,8 @@ export const RegistrationPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onChange = e => {
-    setValue({ ...form, [e.target.name]: e.target.value });
+  const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setValue({ ...form, [e.currentTarget.name]: e.currentTarget.value });
   };
 
   const onSubmit = e => {

@@ -1,9 +1,16 @@
 import styles from "./order-feed.module.css";
 import { OrderItem } from "../order-feed-item/order-feed-item";
 import { parseOrderIngredients } from "../../utils/utils";
+import { FC } from "react";
+import { TOrder, TIngredient } from "../../utils/types";
 
+export type TOrderFeed = {
+  ordersList: TOrder[];
+  data: TIngredient[];
+  location?: "profileOrders";
+}
 
-export const OrderFeed = ({ordersList, data, location}) => {
+export const OrderFeed: FC<TOrderFeed> = ({ordersList, data, location}) => {
   return (<>
     {ordersList && 
     (<div className={`${styles.order__feed} custom-scroll`}>

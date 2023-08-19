@@ -1,60 +1,72 @@
- import { getCookie, handleTokens } from "../utils/utils";
+import { getCookie, handleTokens } from "../utils/utils";
+
+const baseUrl = "https://norma.nomoreparties.space/api";
+const ingredientsEndPoint = "ingredients";
+const orderEndPoint = "orders";
+
+const forgotPasswordEndPoint = "password-reset";
+const resetPasswordEndPoint = "password-reset/reset";
  
- class Api  {
-  constructor () {
-    this.baseUrl = "https://norma.nomoreparties.space/api";
-    this.ingredientsEndPoint = "ingredients";
-    this.orderEndPoint = "orders";
+const createUserEndPoint = "auth/register"
+const loginEndPoint = "auth/login";
+const logoutEndPoint = "auth/logout";
+const userEndPoint = "auth/user";
 
-    this.forgotPasswordEndPoint = "password-reset";
-    this.resetPasswordEndPoint = "password-reset/reset";
-    
-    this.createUserEndPoint = "auth/register"
-    this.loginEndPoint = "auth/login";
-    this.logoutEndPoint = "auth/logout";
+const updateTokenEndPoint = "auth/token";
 
-    this.userEndPoint = "auth/user";
+type TOptions = {
+  method: string;
+  headers: {
+    "Content-Type": "application/json";
+    Authorization?: string;
+  };
+  body?: string;
+}
 
-    this.updateTokenEndPoint = "auth/token";
-  }
+export type TUserInfo = {
+  name?: string;
+  email: string;
+  password: string;
+};
 
-  async checkResponse(res) {
+
+export const checkResponse = async (res: Response) => {
     if (res.ok) {
       return res.json();
     }
     return Promise.reject(await res.json());
-  };
+};
 
-  getData (endPoint, options) {
-    return fetch(`${this.baseUrl}/${endPoint}`, options).then(this.checkResponse);
-  }
+export const getData = (endPoint: string, options?: TOptions) => {
+    return fetch(`${baseUrl}/${endPoint}`, options).then(checkResponse);
+}
   
-  fetchWithRefresh = async (url, options) => {
+export const fetchWithRefresh = async (url: string, options: TOptions) => {
     try {
       const res = await fetch(url, options);
-      return await this.checkResponse(res);
-    } catch (err) {
+      return await checkResponse(res);
+    } catch (err: any) {
       if (err.message === "jwt expired") {
-        const refreshData = await this.updateToken();
+        const refreshData = await updateToken();
         if (!refreshData.success) {
           Promise.reject(refreshData);
         }
         handleTokens(refreshData);
         options.headers.Authorization = refreshData.accessToken;
         const res = await fetch(url, options);
-        return await this.checkResponse(res);
+        return await checkResponse(res);
       } else {
         return Promise.reject(err);
       }
     }
-  };
+};
 
-  getIngredientsList = () => {
-    return this.getData(this.ingredientsEndPoint);
-  };
+export const getIngredientsList = () => {
+    return getData(ingredientsEndPoint);
+};
 
-  getOrderId = (ingredientsList) => {
-    return this.getData(this.orderEndPoint, {
+export const getOrderId = (ingredientsList: string[]) => {
+    return getData(orderEndPoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,11 +78,11 @@
     }).catch((err) => {
       console.log("err:", err);
     });
-  };
+};
 
-  updateToken = () => {
+export const updateToken = () => {
     const refreshToken = localStorage.getItem("refreshToken");
-    return this.getData(this.updateTokenEndPoint, {
+    return getData(updateTokenEndPoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -81,10 +93,10 @@
     }).catch((err) => {
       console.log("err:", err);
     });
-  };
+};
 
-  getUserInfo = () => {
-    return this.fetchWithRefresh(`${this.baseUrl}/${this.userEndPoint}`, {
+export const getUser = () => {
+    return fetchWithRefresh(`${baseUrl}/${userEndPoint}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -93,10 +105,10 @@
     }).catch((err) => {
       console.log("err:", err);
     });
-  };
+};
 
-  updateUserInfo = ({ name, email, password }) => {
-    return this.fetchWithRefresh(`${this.baseUrl}/${this.userEndPoint}`, {
+export const updateUser = ({ name, email, password }: TUserInfo) => {
+    return fetchWithRefresh(`${baseUrl}/${userEndPoint}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -110,10 +122,10 @@
     }).catch((err) => {
       console.log("err:", err);
     });
-  };
+};
 
-  forgotPassword = (email) => {
-    return this.getData(this.forgotPasswordEndPoint, {
+export const forgotPass = (email: string) => {
+    return getData(forgotPasswordEndPoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -122,10 +134,10 @@
         email: email,
       }),
     });
-  }
+}
 
-  resetPassword = (newPassword, token) => {
-    return this.getData(this.resetPasswordEndPoint, {
+export const resetPass = (newPassword: string, token: string) => {
+    return getData(resetPasswordEndPoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -135,10 +147,10 @@
         token: token
       }),
     });
-  }
+}
 
-  createUser = ({ email, password, name }) => {
-    return this.getData(this.createUserEndPoint, {
+export const newUser = ({ email, password, name }: TUserInfo) => {
+    return getData(createUserEndPoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -149,10 +161,10 @@
         name,
       }),
     });
-  };
+};
 
-  loginUser = ({ email, password }) => {
-    return this.getData(this.loginEndPoint, {
+export const login = ({ email, password }: TUserInfo) => {
+    return getData(loginEndPoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -162,11 +174,11 @@
         password,
       }),
     });
-  };
+};
 
-  logoutUser = () => {
+export const logoutUser = () => {
     const refreshToken = localStorage.getItem("refreshToken");
-    return this.getData(this.logoutEndPoint, {
+    return getData(logoutEndPoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -175,7 +187,4 @@
         token: refreshToken,
       }),
     });
-  };
-}
-
-export default Api;
+};
