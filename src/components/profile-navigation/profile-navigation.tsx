@@ -1,17 +1,18 @@
 import { NavLink } from "react-router-dom"
 import styles from './profile-navigation.module.css';
-import { logoutUser } from "../../services/actions/user";
-import { useDispatch } from "react-redux";
+import { logoutUserThunk } from "../../services/actions/user";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../hooks/hooks";
 
 export const ProfileNavigation = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const logout = () => {
-    dispatch(logoutUser()).then(() => {
-      navigate("/")
+    dispatch(logoutUserThunk(() => {
+      navigate("/");
     })
+    );
   } 
   return (
     <div className={`${styles.profile__menu} mr-15 mt-30`}>

@@ -1,26 +1,25 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import styles from './pages.module.css';
 import { Form } from "../components/form/form";
 import { Button, PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { resetPassword } from "../services/actions/user";
-import { useDispatch } from "react-redux";
+import { resetPasswordThunk } from "../services/actions/user";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../hooks/hooks";
 
 export const ResetPasswordPage = () => {
   const [form, setValue] = useState({newPassword: '', token: ''});
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.currentTarget.name]: e.currentTarget.value });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    dispatch(resetPassword(form.newPassword, form.token))
-    .then(() => {
+    dispatch(resetPasswordThunk(form.newPassword, form.token, () => {
       navigate("/login");
-    })
+    }))
   }
 
   return (

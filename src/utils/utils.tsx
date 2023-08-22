@@ -1,8 +1,8 @@
-import { TOrder, TIngredient } from "./types";
+import { TOrder, TIngredient, TToken } from "../services/types/data";
 
 export type TUpdatedOrder = Omit<TOrder, "ingredients"> & {ingredients: TIngredient[]; totalPrice: number}
 
-export function handleTokens(data) {
+export function handleTokens(data: TToken) {
   localStorage.setItem("refreshToken", data.refreshToken);
   let authToken;
   if (data.accessToken.indexOf("Bearer") === 0) {
@@ -24,19 +24,29 @@ export function getCookie(name: string) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function setCookie(name: string, value: string, props) {
-  props = props || {};
-  let exp = props.expires;
-  if (typeof exp == "number" && exp) {
-    const d = new Date();
-    d.setTime(d.getTime() + exp * 100000);
-    exp = props.expires = d;
+export function setCookie(
+  name: string,
+  value: string | null,
+  props?: Record<string, string | Date | boolean | number> | undefined
+) {
+  if (props) {
+    let exp = props.expires;
+    if (typeof exp == "number" && exp) {
+      const d = new Date();
+      d.setTime(d.getTime() + exp * 1000);
+      exp = props.expires = d;
+    }
+
+    if (exp instanceof Date) {
+      props.expires = exp.toUTCString();
+    }
   }
-  if (exp && exp.toUTCString) {
-    props.expires = exp.toUTCString();
+
+  if (value) {
+    value = encodeURIComponent(value);
   }
-  value = encodeURIComponent(value);
   let updatedCookie = name + "=" + value;
+
   for (const propName in props) {
     updatedCookie += "; " + propName;
     const propValue = props[propName];
@@ -51,19 +61,20 @@ export function deleteCookie(name: string) {
   setCookie(name, null, { expires: -1 });
 }
 
-export const parseOrderIngredients = (data: TIngredient[], order: TOrder) => {
+export const parseOrderIngredients = (data: TIngredient[], order: TOrder): TUpdatedOrder => {
   let updatedOrder: TUpdatedOrder;
-  const orderedIngredients = order.ingredients.reduce((prevVal: any, item) => {
+  const orderedIngredients = order.ingredients.reduce((prevVal: TIngredient[], item) => {
     let ingredient = data.find((ingredient) => ingredient._id === item);
-    const isIngredientRepeated = prevVal.findIndex(
-      (element: TIngredient) => element._id === ingredient._id
+    if (ingredient) {
+      const isIngredientRepeated = prevVal.findIndex(
+      (element) => element._id === ingredient?._id
     );
     if (isIngredientRepeated >= 0) {
       prevVal[isIngredientRepeated].counter++;
     } else {
       ingredient.counter = 1;
       prevVal = [...prevVal, ingredient];
-    }
+    }}
 
     return prevVal;
   }, []);

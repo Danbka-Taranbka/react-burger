@@ -1,31 +1,32 @@
 import styles from './pages.module.css';
 import BurgerConstructor from "../components/burger-constructor/burger-constructor";
-import BurgerIngredients from "../components/burger-ingredients/burger-ingredients";
+import { BurgerIngredients } from "../components/burger-ingredients/burger-ingredients";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useDispatch, useSelector } from "react-redux";
-import OrderDetails from '../components/order-details/order-details';
+import { OrderDetails }from '../components/order-details/order-details';
 import {Modal} from '../components/modal/modal';
 import { useCallback } from "react";
 import { openIngredientInfoAction, toggleIngredientInfoAction } from '../services/actions/ingredientPopup';
 import { toggleOrderInfoAction, clearConstructorAction, resetCountersAction } from '../services/actions';
-import { TIngredient } from '../utils/types';
+import { TIngredient } from '../services/types/data';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 
 export default function MainPage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const data = useSelector((store) => store.ingredients.data);
-  const dataRequest = useSelector((store) => store.ingredients.dataRequest);
-  const dataFailed = useSelector((store) => store.ingredients.dataFailed);
+  const data = useAppSelector((store) => store.ingredients.data);
+  const dataRequest = useAppSelector((store) => store.ingredients.dataRequest);
+  const dataFailed = useAppSelector((store) => store.ingredients.dataFailed);
 
-  const orderSuccess = useSelector(
+  const orderSuccess = useAppSelector(
     (store) => store.order.orderSuccess
   );
 
-  const orderModal = useSelector(
+  const orderModal = useAppSelector(
     (store) => store.order.orderModal
   );
-  
+
+  const orderInfo = useAppSelector((store) => store.order.orderInfo) 
 
   const openIngredient = useCallback(
     (item: TIngredient) => {
@@ -51,9 +52,9 @@ export default function MainPage() {
           <BurgerConstructor/>
         </DndProvider>
       )}
-    {orderModal && orderSuccess && (
+    {orderModal && orderSuccess && orderInfo && (
     <Modal onClose={closeOrder}>
-      <OrderDetails/>
+      <OrderDetails orderNumber={orderInfo.number}/>
     </Modal>
     )}
     </div>

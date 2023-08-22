@@ -1,5 +1,5 @@
 import { getCookie, handleTokens } from "../../utils/utils";
-import { updateToken } from "../../api/api.js";
+import { updateToken } from "../../api/api";
 
 export const socketMiddleware = (wsUrl, wsActions, user) => {
   return (store) => {

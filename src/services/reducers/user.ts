@@ -25,14 +25,51 @@ import {
   LOGOUT_FAILED,
 
   CLEAR_USER,
-} from "../actions/user.js"
+  TUserActions,
+} from "../actions/user"
 
-const initialState = {
+type TInitialState = {
+  user: {
+    email: string,
+    name: string,
+    password: string,
+  },
+
+  isAuth: boolean;
+
+  forgotPasswordRequest: boolean,
+  forgotPasswordSuccess: boolean,
+  forgotPasswordFailed: boolean,
+
+  resetPasswordRequest: boolean,
+  resetPasswordSuccess: boolean,
+  resetPasswordFailed: boolean,
+  
+  createUserRequest: boolean,
+  createUserSuccess: boolean,
+  createUserFailed: boolean,
+
+  updateUserRequest: boolean,
+  updateUserSuccess: boolean,
+  updateUserFailed: boolean,
+
+  loginRequest: boolean,
+  loginSuccess: boolean,
+  loginFailed: boolean,
+
+  logoutRequest: boolean,
+  logoutSuccess: boolean,
+  logoutFailed: boolean,
+}
+
+const initialState: TInitialState = {
   user: {
     email: "",
     name: "",
     password: "",
   },
+
+  isAuth: false,
 
   forgotPasswordRequest: false,
   forgotPasswordSuccess: false,
@@ -59,7 +96,7 @@ const initialState = {
   logoutFailed: false,
 };
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action: TUserActions): TInitialState => {
   switch (action.type) {
     
     case RESET_PASSWORD_REQUEST: {
@@ -131,7 +168,7 @@ export const userReducer = (state = initialState, action) => {
     case UPDATE_USER: {
       return {
         ...state,
-        user: { ...state.user, ...action.payload },
+        user: { ...state.user, ...action.user },
       };
     }
     case UPDATE_USER_REQUEST: {
@@ -145,7 +182,7 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         updateUserRequest: false,
         updateUserFailed: false,
-        registerSuccess: true,
+        createUserSuccess: true,
       };
     }
     case UPDATE_USER_FAILED: {
@@ -165,7 +202,7 @@ export const userReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS: {
       return {
         ...state,
-        isUserAuthed: true,
+        isAuth: true,
         loginRequest: false,
         loginFailed: false,
         loginSuccess: true,
@@ -188,7 +225,7 @@ export const userReducer = (state = initialState, action) => {
     case LOGOUT_SUCCESS: {
       return {
         ...state,
-        isUserAuthed: false,
+        isAuth: false,
         logoutRequest: false,
         logoutFailed: false,
         logoutSuccess: true,

@@ -1,12 +1,12 @@
 import styles from './ingredients-category.module.css';
 import {IngredientItem} from '../ingredient-item/ingredient-item';
-import { useSelector } from 'react-redux';
 import { FC } from "react";
-import { TIngredientsCategory } from '../../utils/types';
+import { TIngredientsCategory } from '../../services/types/data';
+import { useAppSelector } from '../../hooks/hooks';
 
 export const IngredientsCategory: FC<TIngredientsCategory> = ({title, type, openIngredient, dragType}) => {
   
-  const ingredientsList = useSelector((store) => store.ingredients.data)
+  const ingredientsList = useAppSelector((store) => store.ingredients.data)
   
   const typeData = ingredientsList.filter(element => element.type === type);
 

@@ -1,58 +1,49 @@
 import { useEffect, useCallback } from 'react';
-import { v4 as uuidv4 } from "uuid";
 import styles from "./burger-constructor.module.css";
 import { Button, CurrencyIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from 'react-redux';
-import { createOrder,    
-  addConstructorItemAction, 
-  updateIngredientCounterAction,
-  setBunItemAction,
-  updateBunCounterAction
-} from '../../services/actions/index';
-import { UPDATE_TOTAL_PRICE } from '../../services/actions/index';
-import { UPDATE_CONSTRUCTOR_EMPTINESS } from '../../services/actions/order';
+import { UPDATE_TOTAL_PRICE, addItemThunk, setBunActionThunk } from '../../services/actions/constructor';
+import { UPDATE_CONSTRUCTOR_EMPTINESS, createOrderThunk } from '../../services/actions/order';
 import { useDrop } from "react-dnd/dist/hooks";
 import {ConstructorItem} from "../constructor-item/constructor-item";
 import { useNavigate } from 'react-router-dom';
 
-import { TIngredient, TItemId } from '../../utils/types';
+import { TItemId, TConstructorIngredient } from '../../services/types/data';
+import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
+import { RootState } from '../../services/types';
 
 
 function BurgerConstructor () {
   const navigate = useNavigate();
-   
-  const dispatch = useDispatch();
-  const totalPrice = useSelector((store) => store.ingredients.totalPrice);
-  const chosenBun = useSelector((store) => store.ingredients.chosenBun);
-  const ingredientsList = useSelector(
-    (store) => store.ingredients.constructorIngredients
+  const dispatch = useAppDispatch();
+
+  const totalPrice = useAppSelector((store: RootState) => store.ingredients.totalPrice);
+  const chosenBun = useAppSelector((store: RootState) => store.ingredients.chosenBun);
+  const ingredientsList = useAppSelector(
+    (store: RootState) => store.ingredients.constructorIngredients
   );
-  const orderRequest = useSelector(
-    (store) => store.order.orderRequest
+  const orderRequest = useAppSelector(
+    (store: RootState) => store.order.orderRequest
   );
 
-  const changeBun = (bun: TItemId) => {
-    dispatch(setBunItemAction(bun._id));
-    dispatch(updateBunCounterAction(bun._id));
+  const changeBun = (id: string) => {
+    dispatch(setBunActionThunk(id));
   }
 
-  const addIngredient = (ingredient: TItemId) => {
-    const uuid = uuidv4();
-    dispatch(addConstructorItemAction(ingredient._id, uuid));
-    dispatch(updateIngredientCounterAction(ingredient._id));
+  const addIngredient = (id: string) => {
+    dispatch(addItemThunk(id));
   };
 
   const confirmOrder = useCallback(() =>{
-    if (localStorage.getItem("isAuth") &&  Object.keys(chosenBun).length!==0) {
+    if (localStorage.getItem("isAuth") && chosenBun) {
       const orderList = [
         chosenBun._id,
-        ingredientsList.map((ingredient: TIngredient) => {
+        ...ingredientsList.map((ingredient) => {
           return ingredient._id;
         }),
         chosenBun._id
-      ].flatMap((i) => i);
+      ];
       console.log(orderList)
-      dispatch(createOrder(orderList));
+      dispatch(createOrderThunk(orderList));
     } else {
       navigate("/login");
     }
@@ -60,8 +51,7 @@ function BurgerConstructor () {
 
   useEffect(() => {
     if (
-      ingredientsList.length === 0 &&
-      Object.keys(chosenBun).length === 0
+      ingredientsList.length === 0 && chosenBun
     ) {
       dispatch({ type: UPDATE_CONSTRUCTOR_EMPTINESS, payload: true });
     } else {
@@ -73,9 +63,9 @@ function BurgerConstructor () {
     accept: ["ingredient", "bun" ],
     drop(itemId: TItemId) {
       if (itemId.type === "ingredient") {
-        addIngredient(itemId);
-      } else if (itemId.type === "bun" &&( itemId !== chosenBun || Object.keys(chosenBun).length === 0)) {
-        changeBun(itemId);
+        addIngredient(itemId._id);
+      } else if (itemId.type === "bun" && chosenBun && ( itemId._id !== chosenBun._id || !chosenBun)) {
+        changeBun(itemId._id);
       }
     },
     collect: (monitor) => ({
@@ -90,14 +80,14 @@ function BurgerConstructor () {
   return (
     <div  className={`mt-20 ml-10 pt-5 ${styles.constructor}`}>
       <div ref={dropTarget}>
-      {(ingredientsList.length !== 0) || (Object.keys(chosenBun).length !== 0)  ? (
+      {(ingredientsList.length !== 0) || (chosenBun)  ? (
       <>
-        {Object.keys(chosenBun).length !== 0 && 
+        {chosenBun && 
           <li className={`mr-2 mb-4 ${styles.listItem}`} key={'bun-top'}>
             <ConstructorElement thumbnail={chosenBun.image} text={`${chosenBun.name} (верх)`} price={chosenBun.price} isLocked={true} type="top"/>
           </li>}
           <ul className={`custom-scroll ${styles.list}`}>
-            {ingredientsList.map((ingredient: TIngredient, index: number) => {
+            {ingredientsList.map((ingredient: TConstructorIngredient, index: number) => {
               console.log(ingredient)
               return (
                 <ConstructorItem
@@ -109,7 +99,7 @@ function BurgerConstructor () {
               )
             })}
           </ul>
-        {Object.keys(chosenBun).length !== 0  && 
+        {chosenBun && 
           <li className={`mr-2 mt-4 ${styles.listItem}`} key={'bun-bottom'}>
             <ConstructorElement thumbnail={chosenBun.image} text={`${chosenBun.name} (низ)`} price={chosenBun.price} isLocked={true} type="bottom"/>
           </li>}

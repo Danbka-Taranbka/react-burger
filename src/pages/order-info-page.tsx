@@ -1,20 +1,20 @@
 import { OrderInfo } from "../components/order-info/order-info"
 import {  useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { useEffect, FC } from "react";
 import { wsUserConnectionStart, wsUserDisconnect } from "../services/actions/ws";
 import { parseOrderIngredients } from "../utils/utils";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 export type TOrderInfoPage = {
   
 }
 
-export const OrderInfoPage: FC = ({wsRoute}) => {
+export const OrderInfoPage: FC = () => {
   const { id } = useParams();
 
-  const dispatch = useDispatch();
-  const orders = useSelector(wsRoute);
-  const data = useSelector((store) => store.ingredients.data)
+  const dispatch = useAppDispatch();
+  const orders = useAppSelector((store) => store.wsUser.orders);
+  const data = useAppSelector((store) => store.ingredients.data)
 
   useEffect(() => {
     dispatch(wsUserConnectionStart());

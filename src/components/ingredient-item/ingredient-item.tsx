@@ -3,7 +3,7 @@ import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-com
 import { useDrag } from 'react-dnd';
 import { Link } from 'react-router-dom';
 import { FC } from "react";
-import { TIngredient } from '../../utils/types';
+import { TIngredient } from '../../services/types/data';
 
 export type TIngredientItem = {
   ingredient: TIngredient;

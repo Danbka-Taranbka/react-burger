@@ -1,19 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 import { Form } from "../form/form";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
-import { updateUserInfo, getUserInfo } from "../../services/actions/user";
+import { updateUserInfoThunk, getUserInfoThunk } from "../../services/actions/user";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 export const ProfileForm = () => {
   const [form, setFormValue] = useState({email: '', password: '', name: ''});
-  const dispatch = useDispatch();
-  const inputRef = useRef(null);
+  const dispatch = useAppDispatch();
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const updateUserRequest = useSelector(
+  const updateUserRequest = useAppSelector(
     (store) => store.user.updateUserRequest
   );
 
-  const user = useSelector((store) => store.user.user);
+  const user = useAppSelector((store) => store.user.user);
   
   const [isChanging, setChanging] = useState(false);
   const [isFocus, setFocus] = useState(true);
@@ -24,9 +24,8 @@ export const ProfileForm = () => {
 
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    dispatch(updateUserInfo(form)).then(() => {
-      setChanging(false);
-    });
+    dispatch(updateUserInfoThunk(form))
+    setChanging(false);
   }
 
   const onNameBlur = () => {
@@ -43,7 +42,7 @@ export const ProfileForm = () => {
   };
 
   useEffect(() => {
-    dispatch(getUserInfo());
+    dispatch(getUserInfoThunk());
   }, [dispatch]);
 
   useEffect(() => {
@@ -53,7 +52,7 @@ export const ProfileForm = () => {
   }, [user, setFormValue]);
 
   const onEditNameClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
+    setTimeout(() => inputRef.current!.focus(), 0);
     setChanging(true);
     setFocus(false);
   }

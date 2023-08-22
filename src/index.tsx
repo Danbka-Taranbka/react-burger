@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router} from "react-router-dom";
 import { initialStore } from "./services/store";
 
-const store = initialStore();
+export const store = initialStore();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

@@ -4,21 +4,23 @@ import {
   removeConstructorItemAction,
   setBunItemAction,
   updateBunCounterAction
-} from "./constructor.js";
+} from "./constructor";
 
-import { getIngredients } from "./ingredients.js";
-import { createOrder, toggleOrderInfoAction, clearConstructorAction, resetCountersAction } from "./order.tsx";
+import { getIngredients } from "./ingredients";
+import { 
+  toggleOrderInfoAction, 
+  clearConstructorAction, 
+  resetCountersAction 
+} from "./order";
 
-import { setCurrentIngredientAction,
-  clearCurrentIngredientAction } from "./ingredientPopup.js";
-
-export const UPDATE_TOTAL_PRICE = "UPDATE_TOTAL_PRICE";
-export const SORT_DRAGGING_ITEM = "SORT_DRAGGING_ITEM";
+import { 
+  setCurrentIngredientAction,
+  clearCurrentIngredientAction 
+} from "./ingredientPopup";
 
 export {
   setBunItemAction,
   getIngredients,
-  createOrder,
   setCurrentIngredientAction,
   clearCurrentIngredientAction,
   updateIngredientCounterAction,

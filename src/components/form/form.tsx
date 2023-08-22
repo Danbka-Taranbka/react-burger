@@ -1,6 +1,6 @@
 import styles from './form.module.css';
 import { FC } from "react";
-import { TForm } from '../../utils/types';
+import { TForm } from '../../services/types/data';
 
 export const Form: FC<TForm> = ({children, title, onSubmit, name}) => {
   return (

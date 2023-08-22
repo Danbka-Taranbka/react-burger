@@ -1,16 +1,16 @@
 import styles from "./pages.module.css"
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { OrderFeed } from "../components/order-feed/order-feed";
 import { OrderFeedStats } from "../components/order-feed-stats/order-feed-stats";
 import { wsFeedConnectionStart, wsFeedDisconnect } from "../services/actions/ws";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 
 export const OrderFeedPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const data = useSelector((store) => store.ingredients.data);
-  const { orders, total, totalToday } = useSelector((store) => store.wsFeed.orders);
+  const data = useAppSelector((store) => store.ingredients.data);
+  const { orders, total, totalToday } = useAppSelector((store) => store.wsFeed);
 
   useEffect(() => {
     dispatch(wsFeedConnectionStart());

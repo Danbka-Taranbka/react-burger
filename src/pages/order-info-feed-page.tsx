@@ -1,21 +1,17 @@
 import { OrderInfo } from "../components/order-info/order-info"
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState, FC } from "react";
 import { wsFeedConnectionStart, wsFeedDisconnect } from "../services/actions/ws";
 import { parseOrderIngredients } from "../utils/utils";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
-export type TOrderInfoFeedPage = {
-  
-}
-
-export const OrderInfoFeedPage: FC = ({wsRoute}) => {
+export const OrderInfoFeedPage: FC = () => {
   const { id } = useParams();
-  const dispatch = useDispatch();
-  const [currentOrder, setCurrentOrder] = useState(null);
+  const dispatch = useAppDispatch();
+  const [currentOrder, setCurrentOrder]: any = useState();
 
-  const orders = useSelector(wsRoute);
-  const data = useSelector((store) => store.ingredients.data);
+  const orders = useAppSelector((store) => store.wsFeed.orders);
+  const data = useAppSelector((store) => store.ingredients.data);
 
   useEffect(() => {
     dispatch(wsFeedConnectionStart());
@@ -26,9 +22,9 @@ export const OrderInfoFeedPage: FC = ({wsRoute}) => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (orders.orders) {
+    if (orders) {
       setCurrentOrder(
-        orders.orders.find((item) => {
+        orders.find((item) => {
           return item.number === Number(id);
       })
       ) 

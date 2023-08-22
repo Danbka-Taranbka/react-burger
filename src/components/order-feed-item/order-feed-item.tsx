@@ -2,9 +2,9 @@ import styles from "./order-feed-item.module.css";
 import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import { IngredientIcon } from "../ingredient-icon/ingredient-icon";
-import { useSelector } from "react-redux";
 import { FC } from "react";
 import { TUpdatedOrder } from "../../utils/utils";
+import { useAppSelector } from "../../hooks/hooks";
 
 type TOrderItem = {
   order: TUpdatedOrder;
@@ -14,7 +14,7 @@ type TOrderItem = {
 export const OrderItem: FC<TOrderItem> = ({ order, location}) => {
 
   const orderIngredients = order.ingredients.slice(0, 6);
-  const data = useSelector(store => store.ingredients.data);
+  const data = useAppSelector(store => store.ingredients.data);
   
   return (<>
     {orderIngredients && data.length>0 && order.ingredients.length>0 && (<Link className={`${styles.order__item}`}

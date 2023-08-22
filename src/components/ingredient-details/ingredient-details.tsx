@@ -1,7 +1,12 @@
 import styles from './ingredient-details.module.css';
-import { TIngredient } from '../../utils/types';
+import { TIngredient } from '../../services/types/data';
+import { FC } from 'react';
 
-export const IngredientDetails = ( data: TIngredient ) => {
+type TIngredientDetails = {
+  data: TIngredient; 
+}
+
+export const IngredientDetails: FC<TIngredientDetails> = ( {data} ) => {
   const detailsItem = (text: string, detail: number) => {
    return (
     <div className={`${styles.info}`}>

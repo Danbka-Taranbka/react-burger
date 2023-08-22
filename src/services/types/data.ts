@@ -12,8 +12,10 @@ export type TIngredient = {
   readonly type: string;
   __v?: number;
   readonly _id: string;
-  readonly uniqueId?: string;
 };
+
+export type TConstructorIngredient = TIngredient & {readonly uniqueId: string};
+
 
 export type TBun = Omit<TIngredient, "type"> & {readonly type: "bun"};
 
@@ -23,14 +25,8 @@ export type TSauce = Omit<TIngredient, "type"> & {readonly type: "sauce"};
 
 export type TItemId = {
   readonly _id: string;
-  readonly type: "ingredient" & "bun";
+  readonly type: "ingredient" | "bun";
   readonly index: number;
-};
-
-export type TConstructorItem = {
-  ingredient: TIngredient;
-  type: string;
-  index: number;
 };
 
 export type TForm = {
@@ -52,11 +48,6 @@ export type TIngredientsCategory = {
   dragType: string;
 };
 
-export type TModal = {
-  onClose: Function;
-  children?: React.ReactNode | undefined;
-};
-
 export type TModalOverlay = {
   children?: React.ReactNode | undefined;
 };
@@ -70,3 +61,15 @@ export type TOrder = {
   updatedAt: string;
   _id: string;
 };
+
+export type TWsOrders = {
+  orders: TOrder[];
+  total: number;
+  totalToday: number;
+};
+
+export type TToken = {
+  success?: boolean;
+  readonly accessToken: string;
+  readonly refreshToken: string;
+}

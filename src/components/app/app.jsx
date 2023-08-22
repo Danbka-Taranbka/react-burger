@@ -3,7 +3,7 @@ import appStyles from './app.module.css';
 import { Route, Routes, useLocation } from "react-router-dom";
 import { ProtectedRouteElement } from "../protected-route";
 import { useDispatch } from "react-redux";
-import { getIngredients } from '../../services/actions/index.js';
+import { getIngredients } from '../../services/actions/index';
 import { RegistrationPage } from "../../pages/registration-page";
 import { LoginPage } from "../../pages/login-page";
 import { ForgotPasswordPage } from "../../pages/forgot-password-page";
@@ -41,9 +41,9 @@ function App () {
               <Route index element={<ProfileForm/>}/>
               <Route path="orders" element={<ProtectedRouteElement element={<ProfileOrders />}/>}/>
             </Route>
-            <Route path="profile/orders/:id" element={<ProtectedRouteElement element={<OrderInfoPage wsRoute={(store) => store.wsUser.orders}/>}/>}/>
+            <Route path="profile/orders/:id" element={<ProtectedRouteElement element={<OrderInfoPage/>}/>}/>
             <Route path="/feed" element={<OrderFeedPage/>}/>
-            <Route path="feed/:id" element={<OrderInfoFeedPage wsRoute={(store) => store.wsFeed.orders}/>}/>
+            <Route path="feed/:id" element={<OrderInfoFeedPage/>}/>
           </Route>
         </Routes>
 

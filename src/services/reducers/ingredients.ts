@@ -1,19 +1,16 @@
 import {
-  UPDATE_TOTAL_PRICE,
-  SORT_DRAGGING_ITEM,
-} from "../actions/index.js";
-
-import {
   CLEAR_CONSTRUCTOR,
   RESET_COUNTERS,
-} from "../actions/order.tsx"
+  TOrderActions,
+} from "../actions/order"
 
 import {
   GET_INGREDIENT_REQUEST,
   GET_INGREDIENT_SUCCESS,
   GET_INGREDIENT_FAILED,
+  TIngredientsActions,
 
-} from '../actions/ingredients.js';
+} from '../actions/ingredients';
 
 import {
   SET_BUN,
@@ -21,22 +18,40 @@ import {
   DELETE_CONSTRUCTOR_ITEM,
   UPDATE_INGREDIENT_COUNTER,
   UPDATE_BUN_COUNTER,
-} from "../actions/constructor.js"
+  TConstructorActions,
+  UPDATE_TOTAL_PRICE,
+  SORT_DRAGGING_ITEM,
+} from "../actions/constructor"
 
-const initialState = {
+import { TConstructorIngredient, TIngredient } from "../types/data";
+
+type TInitialState = {
+  data: TIngredient[],
+  dataRequest: boolean,
+  dataFailed: boolean,
+
+  chosenBun: TIngredient | null | undefined,
+  constructorIngredients: TConstructorIngredient[],
+
+  currentIngredient: TIngredient | null | undefined,
+
+  totalPrice: number,
+}
+
+const initialState: TInitialState = {
   data: [],
   dataRequest: false,
   dataFailed: false,
 
-  chosenBun: {},
+  chosenBun: null,
   constructorIngredients: [],
 
-  currentIngredient: {},
+  currentIngredient: null,
 
   totalPrice: 0,
 };
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialState, action: TIngredientsActions | TConstructorActions | TOrderActions): TInitialState => {
   switch (action.type) {
     case GET_INGREDIENT_REQUEST: {
       return {
@@ -66,7 +81,7 @@ export const ingredientsReducer = (state = initialState, action) => {
     }
     case UPDATE_TOTAL_PRICE: {
       const bunPrice = (
-        state.chosenBun.price === undefined
+        !state.chosenBun
         ? 0
         : state.chosenBun.price * 2
       )
@@ -78,13 +93,16 @@ export const ingredientsReducer = (state = initialState, action) => {
     }
     case ADD_CONSTRUCTOR_ITEM: {
       const newItem = state.data.find((item) => item._id === action.ingredientId);
-      const uniqueId = action.uuid;
-      const ingred = { ...newItem, uniqueId };
-
-      return {
-        ...state,
-        constructorIngredients: [...state.constructorIngredients, ingred],
-      };
+      if (newItem) {
+        const uniqueId = action.uuid;
+        const ingred = { ...newItem, uniqueId };   
+        return {
+          ...state,
+          constructorIngredients: [...state.constructorIngredients, ingred],
+        };
+      } else {
+        return {...state}
+      }
     }
     case UPDATE_INGREDIENT_COUNTER: {
       return {
@@ -140,7 +158,7 @@ export const ingredientsReducer = (state = initialState, action) => {
     case CLEAR_CONSTRUCTOR: {
       return {
         ...state,
-        chosenBun: {},
+        chosenBun: null,
         constructorIngredients: [],
       };
     }

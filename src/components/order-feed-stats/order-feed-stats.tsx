@@ -1,4 +1,4 @@
-import { TOrder } from "../../utils/types";
+import { TOrder } from "../../services/types/data";
 import styles from "./order-feed-stats.module.css";
 import {useMemo, FC} from "react";
 

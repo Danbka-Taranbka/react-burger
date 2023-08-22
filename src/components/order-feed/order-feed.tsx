@@ -2,7 +2,7 @@ import styles from "./order-feed.module.css";
 import { OrderItem } from "../order-feed-item/order-feed-item";
 import { parseOrderIngredients } from "../../utils/utils";
 import { FC } from "react";
-import { TOrder, TIngredient } from "../../utils/types";
+import { TOrder, TIngredient } from "../../services/types/data";
 
 export type TOrderFeed = {
   ordersList: TOrder[];

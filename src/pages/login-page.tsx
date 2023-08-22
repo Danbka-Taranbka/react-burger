@@ -1,16 +1,16 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, FormEvent } from "react";
 import styles from './pages.module.css';
 import { Form } from "../components/form/form";
 import { Button, PasswordInput, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { loginUser } from "../services/actions/user";
+import { loginUserThunk } from "../services/actions/user";
+import { useAppDispatch } from "../hooks/hooks";
 
 
 export const LoginPage = () => {
   const [form, setValue] = useState({email: '', password: ''});
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -18,15 +18,15 @@ export const LoginPage = () => {
   };
 
   const onSubmit = useCallback(
-    (e: React.SyntheticEvent) => {
+    (e: FormEvent) => {
       e.preventDefault();
-      dispatch(loginUser(form)).then(() => {
+      dispatch(loginUserThunk(form, () => {
         if (location.state !== null && location.state.from) {
           navigate(location.state.from.pathname);
         } else {
           navigate("/");
         }
-      });
+      }))
     },
     [form, dispatch, location.state, navigate]
   );

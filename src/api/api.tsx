@@ -176,7 +176,7 @@ export const login = ({ email, password }: TUserInfo) => {
     });
 };
 
-export const logoutUser = () => {
+export const logout = () => {
     const refreshToken = localStorage.getItem("refreshToken");
     return getData(logoutEndPoint, {
       method: "POST",

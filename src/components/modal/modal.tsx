@@ -3,21 +3,28 @@ import styles from './modal.module.css';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ModalOverlay } from "../modal-overlay/modal-overlay";
 import { createPortal } from "react-dom";
-import { TModal } from "../../utils/types";
+
+type TModal = {
+  onClose: () => void;
+  children: React.ReactNode;
+};
 
 export const Modal: FC<TModal> = ({children, onClose}) => {
-  const modalContainer = useRef();
+
+  const modalContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleEscClose = (e) => {
+    const handleEscClose = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         onClose();
       }
     };
 
-    const handleOverlayClose = (e) => {
-      if (!modalContainer.current.contains(e.target)) {
-        onClose();
+    const handleOverlayClose = (e: MouseEvent) => {
+      if (e.target instanceof Node) {
+        if (!modalContainer.current!.contains(e.target)) {
+          onClose();
+        }
       }
     };
 
@@ -40,6 +47,6 @@ export const Modal: FC<TModal> = ({children, onClose}) => {
         {children}
       </div>
     </ModalOverlay>,
-    document.getElementById("react-modals")
+    document.getElementById("react-modals")!
   );
 };

@@ -1,18 +1,26 @@
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
 import styles from "./constructor-item.module.css";
-import { useDispatch } from "react-redux";
-import {  SORT_DRAGGING_ITEM, removeConstructorItemAction, updateIngredientCounterAction} from "../../services/actions/index.js";
+import {  removeConstructorItemAction, updateIngredientCounterAction} from "../../services/actions/index";
 import { useRef, FC } from "react";
-import { TConstructorItem } from "../../utils/types";
+import { TConstructorIngredient } from "../../services/types/data";
+import { SORT_DRAGGING_ITEM } from "../../services/actions/constructor";
+import { useAppDispatch } from "../../hooks/hooks";
+
+export type TConstructorItem = {
+  ingredient: TConstructorIngredient;
+  type: string;
+  index: number;
+};
 
 export const ConstructorItem: FC<TConstructorItem> = ({ingredient, type, index}) => {
-  const dispatch = useDispatch();
-  const ref = useRef(null);
+  const dispatch = useAppDispatch();
+  const ref = useRef<HTMLLIElement>(null);
   const id = ingredient._id;
-  const removeIngredient = (uniqueId: any, itemId: string) => {
-    dispatch(removeConstructorItemAction(uniqueId));
-    dispatch(updateIngredientCounterAction(itemId))
+
+  const removeIngredient = (ingredient: TConstructorIngredient) => {
+    dispatch(removeConstructorItemAction(ingredient.uniqueId));
+    dispatch(updateIngredientCounterAction(ingredient._id))
   };
 
   const [, drop] = useDrop({
@@ -31,7 +39,7 @@ export const ConstructorItem: FC<TConstructorItem> = ({ingredient, type, index})
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
@@ -65,7 +73,7 @@ export const ConstructorItem: FC<TConstructorItem> = ({ingredient, type, index})
         price={ingredient.price}
         thumbnail={ingredient.image}
         handleClose={() => {
-          removeIngredient(ingredient.uniqueId, ingredient._id);
+          removeIngredient(ingredient);
         }}
       />
     </li>

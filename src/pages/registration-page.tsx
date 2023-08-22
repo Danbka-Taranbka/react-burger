@@ -1,29 +1,26 @@
-import {useState } from "react";
+import {FormEvent, useState } from "react";
 import styles from './pages.module.css';
 import { Form } from "../components/form/form";
 import { Input, Button, PasswordInput, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createUser, loginUser } from "../services/actions/user";
+import { createUserThunk } from "../services/actions/user";
+import { useAppDispatch } from "../hooks/hooks";
 
 export const RegistrationPage = () => {
   const [form, setValue] = useState({email: '', password: '', name: ''});
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.currentTarget.name]: e.currentTarget.value });
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    dispatch(createUser(form)).then((res) => {
-      if (res.success) {
-        dispatch(loginUser(form)).then(() => {
-          navigate("/")
-        })
-      }
+    dispatch(createUserThunk(form, (() => {
+      navigate("/login")
     })
+    ))
   }
 
   return (

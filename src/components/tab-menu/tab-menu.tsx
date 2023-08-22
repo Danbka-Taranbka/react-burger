@@ -3,14 +3,14 @@ import styles from "./tab-menu.module.css";
 import { FC } from "react";
 
 export type TTabMenu = {
-  current: "buns" | "sauces" | "main";
-  refs: {};
+  current: string;
+  refs: any;
   setCurrent: Function;
 }
 
 export const TabMenu: FC<TTabMenu> = ({refs, setCurrent, current}) => {
   
-  const onTabClick = (ref) => {
+  const onTabClick = (ref: any) => {
     const elmnt = ref;
     elmnt.current.scrollIntoView({
       behavior: "smooth",

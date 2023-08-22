@@ -1,13 +1,24 @@
+import { TUpdatedOrder } from "../../utils/utils";
 import {
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
   GET_ORDER_FAILED,
   UPDATE_CONSTRUCTOR_EMPTINESS,
-  TOGGLE_ORDER_MODAL
-} from "../actions/order.tsx";
+  TOGGLE_ORDER_MODAL,
+  TOrderActions
+} from "../actions/order";
 
-const initialState = {
-  orderInfo: {},
+type TInitialState = {
+  orderInfo: TUpdatedOrder | null | undefined,
+  orderRequest: boolean,
+  orderFailed: boolean,
+  orderSuccess: boolean,
+  isEmpty: boolean,
+  orderModal: boolean,
+}
+
+const initialState: TInitialState = {
+  orderInfo: null,
   orderRequest: false,
   orderFailed: false,
   orderSuccess: false,
@@ -15,7 +26,7 @@ const initialState = {
   orderModal: false,
 };
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action: TOrderActions): TInitialState => {
   switch (action.type) {
     case GET_ORDER_REQUEST: {
       return {
@@ -28,7 +39,7 @@ export const orderReducer = (state = initialState, action) => {
         ...state,
         orderRequest: false,
         orderFailed: false,
-        orderInfo: action.payload,
+        orderInfo: action.res,
         orderSuccess: true,
       };
     }
@@ -38,7 +49,7 @@ export const orderReducer = (state = initialState, action) => {
     case UPDATE_CONSTRUCTOR_EMPTINESS: {
       return {
         ...state,
-        isEmpty: action.payload,
+        isEmpty: action.state,
         orderSuccess: false,
       };
     }
