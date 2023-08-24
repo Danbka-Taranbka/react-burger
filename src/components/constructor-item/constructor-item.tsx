@@ -25,9 +25,8 @@ export const ConstructorItem: FC<TConstructorItem> = ({ingredient, type, index})
 
   const [, drop] = useDrop({
     accept: "ingredient",
-    hover(item: TConstructorItem, monitor) {
+    hover(item: {id: string, index: number}, monitor) {
       if (!ref.current) {
-        console.log(item);
         return;
       }
       const dragIndex = item.index;

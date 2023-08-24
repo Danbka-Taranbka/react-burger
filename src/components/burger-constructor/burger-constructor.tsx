@@ -64,7 +64,7 @@ function BurgerConstructor () {
     drop(itemId: TItemId) {
       if (itemId.type === "ingredient") {
         addIngredient(itemId._id);
-      } else if (itemId.type === "bun" && chosenBun && ( itemId._id !== chosenBun._id || !chosenBun)) {
+      } else {
         changeBun(itemId._id);
       }
     },
@@ -88,7 +88,6 @@ function BurgerConstructor () {
           </li>}
           <ul className={`custom-scroll ${styles.list}`}>
             {ingredientsList.map((ingredient: TConstructorIngredient, index: number) => {
-              console.log(ingredient)
               return (
                 <ConstructorItem
                 key={ingredient.uniqueId}

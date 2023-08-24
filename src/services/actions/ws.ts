@@ -1,4 +1,4 @@
-import { TOrder, TWsOrders } from "../types/data";
+import { TWsOrders } from "../types/data";
 
 export const WS_CONNECTION_START: "WS_CONNECTION_START" = "WS_CONNECTION_START";
 export const WS_SEND_MESSAGE: "WS_SEND_MESSAGE" = "WS_SEND_MESSAGE";
@@ -82,7 +82,7 @@ type TWsUserConnectionError = {
 
 type TWsGetUserOrders = {
   readonly type: typeof WS_GET_USER_ORDERS;
-  payload: TOrder[];
+  payload: TWsOrders;
 };
 
 type TWsUserConnectionStart = {

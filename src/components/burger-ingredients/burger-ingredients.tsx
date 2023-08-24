@@ -15,7 +15,7 @@ export const BurgerIngredients: FC<TBurgerIngredients> = ({openIngredient}) => {
   const saucesRef = useRef<HTMLLIElement>(null);
   const mainRef = useRef<HTMLLIElement>(null);
   const tabs = {bunsRef, saucesRef, mainRef};
-  const tabRefs = useRef<HTMLDivElement>(null);
+  const tabRefs = useRef<HTMLUListElement>(null);
 
   const updatePosition = () => {
     const tabsPositionY = Math.floor(tabRefs.current!.getBoundingClientRect().y);
@@ -40,7 +40,7 @@ export const BurgerIngredients: FC<TBurgerIngredients> = ({openIngredient}) => {
     <div className={styles.burgerIngredients}>
       <h2 className={`text text_type_main-large ${styles.title}`}>Соберите бургер</h2>
       <TabMenu refs={tabs} current={current} setCurrent={setCurrent}/>
-      <ul onScroll={updatePosition} className={`custom-scroll ${styles.list}`}>
+      <ul ref={tabRefs} onScroll={updatePosition} className={`custom-scroll ${styles.list}`}>
         <li ref={bunsRef}><IngredientsCategory title='Булки' type='bun' openIngredient={openIngredient} dragType={'bun'}/></li>
         <li ref={saucesRef}><IngredientsCategory title='Соусы' type='sauce' openIngredient={openIngredient} dragType={'ingredient'}/></li>
         <li ref={mainRef}><IngredientsCategory title='Начинки' type='main' openIngredient={openIngredient} dragType={'ingredient'}/></li>

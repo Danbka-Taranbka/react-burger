@@ -1,8 +1,14 @@
 import styles from './ingredients-category.module.css';
 import {IngredientItem} from '../ingredient-item/ingredient-item';
 import { FC } from "react";
-import { TIngredientsCategory } from '../../services/types/data';
 import { useAppSelector } from '../../hooks/hooks';
+
+export type TIngredientsCategory = {
+  title: string;
+  type: string;
+  openIngredient: Function;
+  dragType: string;
+};
 
 export const IngredientsCategory: FC<TIngredientsCategory> = ({title, type, openIngredient, dragType}) => {
   

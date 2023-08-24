@@ -20,9 +20,10 @@ export const ProfileOrders = () => {
 
   const data = useAppSelector((store) => store.ingredients.data);
   const orders = useAppSelector((store) => store.wsUser.orders);
-  
+  console.log(orders)
   return (<>
-    {orders && data && (<div className={`${styles.feed} custom-scroll`}>
+    {orders && data && (
+    <div className={`${styles.feed} custom-scroll`}>
       {orders
         .slice(0)
         .reverse()

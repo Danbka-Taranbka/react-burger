@@ -40,7 +40,7 @@ export const wsUserReducer = (state = initialState, action: TWsUserActions): TIn
     case WS_GET_USER_ORDERS:
       return {
         ...state,
-        orders: action.payload,
+        orders: action.payload.orders,
       };
 
     default:

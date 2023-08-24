@@ -23,6 +23,12 @@ export type TMain = Omit<TIngredient, "type"> & {readonly type: "main"};
 
 export type TSauce = Omit<TIngredient, "type"> & {readonly type: "sauce"};
 
+export type TConstructorItem = {
+  ingredient: TConstructorIngredient;
+  type: string;
+  index: number;
+};
+
 export type TItemId = {
   readonly _id: string;
   readonly type: "ingredient" | "bun";
@@ -39,13 +45,6 @@ export type TIngredientIcon = {
   amount: number;
   index: number;
   location?: string;
-};
-
-export type TIngredientsCategory = {
-  title: string;
-  type: string;
-  openIngredient: Function;
-  dragType: string;
 };
 
 export type TModalOverlay = {

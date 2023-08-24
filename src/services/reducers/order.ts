@@ -9,7 +9,7 @@ import {
 } from "../actions/order";
 
 type TInitialState = {
-  orderInfo: TUpdatedOrder | null | undefined,
+  orderInfo: TUpdatedOrder | null,
   orderRequest: boolean,
   orderFailed: boolean,
   orderSuccess: boolean,
