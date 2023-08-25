@@ -42,7 +42,7 @@ function BurgerConstructor () {
         }),
         chosenBun._id
       ];
-      console.log(orderList)
+      console.log(orderList);
       dispatch(createOrderThunk(orderList));
     } else {
       navigate("/login");

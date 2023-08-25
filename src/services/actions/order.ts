@@ -82,14 +82,13 @@ export const createOrderThunk: AppThunk = (ingredientsList: string[]) => {
   return function (dispatch: AppDispatch) {
     if (ingredientsList.length === 0) {
       dispatch(updateConstructorEmptinessAction(true));
-      return;
     }
     dispatch(getOrderRequestAction());
     getOrderId(ingredientsList)
       .then((res) => {
         if (res.success) {
           dispatch(getOrderSuccessAction(res.order));
-          localStorage.setItem("orderModal", "true");
+          dispatch(toggleOrderInfoAction());
           localStorage.setItem(
             "newOrderConfirmedDetails",
             JSON.stringify(res.order)
@@ -106,7 +105,7 @@ export const closeOrderModalAction: AppThunk = () => {
   return function (dispatch: AppDispatch) {
     dispatch(clearConstructorAction());
     dispatch(resetCountersAction());
-    localStorage.setItem("orderModal", "false");
+    dispatch(toggleOrderInfoAction());
     localStorage.removeItem("newOrderConfirmedDetails");
   };
 };

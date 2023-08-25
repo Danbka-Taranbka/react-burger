@@ -4,11 +4,12 @@ import { useEffect, useState, FC } from "react";
 import { wsFeedConnectionStart, wsFeedDisconnect } from "../services/actions/ws";
 import { parseOrderIngredients } from "../utils/utils";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+import { TOrder } from "../services/types/data";
 
 export const OrderInfoFeedPage: FC = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const [currentOrder, setCurrentOrder]: any = useState();
+  const [currentOrder, setCurrentOrder] = useState<TOrder>();
 
   const orders = useAppSelector((store) => store.wsFeed.orders);
   const data = useAppSelector((store) => store.ingredients.data);

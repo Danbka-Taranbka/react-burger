@@ -1,10 +1,11 @@
 import { IngredientDetails } from "../components/ingredient-details/ingredient-details";
-import { useCallback } from "react";
+import { useCallback, FC } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Modal } from "../components/modal/modal";
 import { useAppSelector } from "../hooks/hooks";
 
-export const IngredientPage = () => {
+
+export const IngredientPage: FC = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -21,12 +22,12 @@ export const IngredientPage = () => {
   }, [navigate])
 
   return (
-
-       currentIngredient && (
+    <>
+       {currentIngredient && (
         <Modal onClose={closeIngredient}>
         <IngredientDetails data={currentIngredient}/>
         </Modal>
-      )
-
+      )}
+      </>
   )
 }

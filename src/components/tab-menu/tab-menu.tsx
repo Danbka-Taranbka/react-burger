@@ -1,6 +1,6 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./tab-menu.module.css";
-import { FC } from "react";
+import { FC, MutableRefObject } from "react";
 
 export type TTabMenu = {
   current: string;
@@ -10,7 +10,7 @@ export type TTabMenu = {
 
 export const TabMenu: FC<TTabMenu> = ({refs, setCurrent, current}) => {
   
-  const onTabClick = (ref: any) => {
+  const onTabClick = (ref: MutableRefObject<HTMLDivElement>) => {
     const elmnt = ref;
     elmnt.current.scrollIntoView({
       behavior: "smooth",

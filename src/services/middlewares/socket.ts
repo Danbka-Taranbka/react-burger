@@ -1,9 +1,15 @@
 import { getCookie, handleTokens } from "../../utils/utils";
 import { updateToken } from "../../api/api";
+import { Middleware, MiddlewareAPI } from "redux";
+import { AppDispatch, RootState } from "../types";
+import { IwsActions, IwsUserActions } from "../types/wsActions";
 
-export const socketMiddleware = (wsUrl, wsActions, user) => {
-  return (store) => {
-    let socket = null;
+
+export const socketMiddleware = (wsUrl: string, 
+  wsActions: IwsActions | IwsUserActions, 
+  user?: boolean): Middleware => {
+  return (store: MiddlewareAPI<AppDispatch, RootState>) => {
+    let socket: WebSocket | null = null;
 
     return (next) => (action) => {
       const { dispatch } = store;

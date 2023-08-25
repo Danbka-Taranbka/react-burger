@@ -1,14 +1,13 @@
 import styles from "./profile-orders.module.css";
 import { OrderItem } from "../order-feed-item/order-feed-item";
-import { useDispatch } from "react-redux";
 import {useEffect} from "react";
 import { wsUserConnectionStart, wsUserDisconnect } from "../../services/actions/ws"; 
 import { parseOrderIngredients } from "../../utils/utils";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 
 export const ProfileOrders = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(wsUserConnectionStart());

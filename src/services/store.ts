@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore, compose } from "redux";
 import { rootReducer } from "./reducers";
-import { socketMiddleware } from "./middlewares/socket.js";
+import { socketMiddleware } from "./middlewares/socket";
 import thunk from "redux-thunk";
 import {
   WS_CONNECTION_START,

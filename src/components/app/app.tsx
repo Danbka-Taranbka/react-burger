@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import appStyles from './app.module.css';
 import { Route, Routes, useLocation } from "react-router-dom";
 import { ProtectedRouteElement } from "../protected-route";
-import { useDispatch } from "react-redux";
 import { getIngredients } from '../../services/actions/index';
 import { RegistrationPage } from "../../pages/registration-page";
 import { LoginPage } from "../../pages/login-page";
@@ -17,11 +16,12 @@ import { IngredientPage } from "../../pages/ingredient-page";
 import { OrderFeedPage } from "../../pages/order-feed-page";
 import { OrderInfoPage } from "../../pages/order-info-page";
 import { OrderInfoFeedPage } from "../../pages/order-info-feed-page";
+import { useAppDispatch } from "../../hooks/hooks";
 
 function App () {
-    const dispatch = useDispatch();
-    let location = useLocation();
-    let background = location.state && location.state.background
+    const dispatch = useAppDispatch();
+    const location = useLocation();
+    const background = location.state && location.state.background
 
   useEffect(() => {
     dispatch(getIngredients());

@@ -1,10 +1,10 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { IS_AUTH } from "../services/actions/user";
-import { FC } from "react";
+import { FC, ReactElement } from "react";
 
 export type TProtectedRoute = {
-  element: any;
-  auth: boolean;
+  element: ReactElement;
+  auth?: boolean;
 };
 
 export const ProtectedRouteElement: FC<TProtectedRoute> = ({ element, auth }) => {
