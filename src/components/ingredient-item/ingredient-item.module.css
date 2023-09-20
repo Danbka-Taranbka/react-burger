@@ -9,6 +9,8 @@
   position: relative;
   cursor: pointer;
   gap: 8px;
+  color: white;
+  text-decoration: none;
 }
 
 .image {

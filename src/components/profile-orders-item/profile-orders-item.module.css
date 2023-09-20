@@ -1,0 +1,30 @@
+.order__item {
+  border: green solid 1px;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  width: 100%;
+  gap: 24px;
+  border-radius: 40px;
+  text-align: start;
+  cursor: pointer;
+}
+
+.order__box{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+
+}
+
+.order__ingredients {
+  display: flex;
+  flex-direction: row;
+}
+
+.order__price {
+  display: flex;
+  align-content: center;
+  gap: 8px;
+}

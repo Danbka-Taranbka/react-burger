@@ -10,7 +10,6 @@ import { getIngredients } from "./ingredients.js";
 import { createOrder, toggleOrderInfoAction, clearConstructorAction, resetCountersAction } from "./order.js";
 
 import { setCurrentIngredientAction,
-  toggleIngredientInfoAction, 
   clearCurrentIngredientAction } from "./ingredientPopup.js";
 
 export const UPDATE_TOTAL_PRICE = "UPDATE_TOTAL_PRICE";
@@ -21,7 +20,6 @@ export {
   getIngredients,
   createOrder,
   setCurrentIngredientAction,
-  toggleIngredientInfoAction,
   clearCurrentIngredientAction,
   updateIngredientCounterAction,
   addConstructorItemAction,

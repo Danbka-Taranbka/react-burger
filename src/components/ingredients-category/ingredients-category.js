@@ -5,22 +5,6 @@ import { useSelector } from 'react-redux';
 
 function IngredientsCategory ({title, type, openIngredient, dragType}) {
   
-  //function handleIngredientClick (data) {
-    //Открытие модального окна ингредиента
-    //openIngredient(data); 
-    
-    /*
-    //Добавление ингредиента в конструктор по клику, в дальнейшем будет заменено на перетаскивание
-    const hasBun = constructorState.constructorData.find(element => element.type === 'bun');
-    //"Убираем" возможность добавления второй булки в конструктор, нельзя есть слишком много мучного!
-    if (hasBun !== undefined && data.type === 'bun') {
-      return;
-    } else {
-      dispatchConstructorState({type: "add", newIngredient: data, isBun: isBun});
-    }*/
- // }
-
-
   const ingredientsList = useSelector((store) => store.ingredients.data)
   
   const typeData = ingredientsList.filter(element => element.type === type);

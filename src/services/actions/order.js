@@ -38,6 +38,7 @@ export function createOrder(ingredientsList) {
   };
 }
 
+
 export const toggleOrderInfoAction = () => ({
   type: TOGGLE_ORDER_MODAL
 })

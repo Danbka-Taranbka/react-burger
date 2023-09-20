@@ -1,17 +1,26 @@
 import React from "react";
 import styles from "./nav-item.module.css";
 import PropTypes from 'prop-types';
+import { NavLink } from "react-router-dom";
 
 
 function NavItem (props) {
   return (
     <li className={styles.navItem}>
-      <a href={props.link} className={`${styles.link}`}>
-        <div className={styles.text}>
-          {props.icon}
-          <p className={`${props.text}`}>{props.children}</p>
-        </div>
-      </a>
+      <NavLink 
+      to={props.path}
+      className={styles.link}
+style={({ isActive }) => ({
+                color: isActive ? "#f2f2f3" : "#8585ad",
+              })}
+      >
+        {({isActive}) => (
+          <>
+          {<props.element type={isActive ? "primary" : "secondary"}/>}
+          <p className="text text_type_main-default">{props.text}</p>
+          </>
+        )}
+      </NavLink>
     </li>
   )
 }
