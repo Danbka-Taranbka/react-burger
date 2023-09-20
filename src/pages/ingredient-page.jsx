@@ -1,13 +1,11 @@
 import IngredientDetails from "../components/ingredient-details/ingredient-details";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Modal from "../components/modal/modal";
-import { useSelector, useDispatch } from "react-redux";
-import { getIngredients } from "../services/actions";
+import { useSelector } from "react-redux";
 
 export const IngredientPage = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { id } = useParams();
 
   const data = useSelector((store) => store.ingredients.data);

@@ -17,6 +17,7 @@ export const ProfileNavigation = () => {
     <div className={`${styles.profile__menu} mr-15 mt-30`}>
     <NavLink
       to={"/profile"}
+      end
       className={`${styles.profile__link} text text_type_main-medium`}
       style={({ isActive }) => ({
       color: isActive ? "#f2f2f3" : "#8585ad",

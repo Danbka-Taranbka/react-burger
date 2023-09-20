@@ -42,7 +42,7 @@
         handleTokens(refreshData);
         options.headers.Authorization = refreshData.accessToken;
         const res = await fetch(url, options);
-        return await this.getResponse(res);
+        return await this.checkResponse(res);
       } else {
         return Promise.reject(err);
       }
@@ -57,11 +57,14 @@
     return this.getData(this.orderEndPoint, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getCookie("token"),
       },
       body: JSON.stringify({
         ingredients: ingredientsList,
       }),
+    }).catch((err) => {
+      console.log("err:", err);
     });
   };
 

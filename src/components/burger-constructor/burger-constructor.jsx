@@ -8,11 +8,11 @@ import { createOrder,
   updateIngredientCounterAction,
   setBunItemAction,
   updateBunCounterAction
-} from '../../services/actions/index.js';
-import { UPDATE_TOTAL_PRICE } from '../../services/actions/index.js';
-import { UPDATE_CONSTRUCTOR_EMPTINESS } from '../../services/actions/order.js';
+} from '../../services/actions/index';
+import { UPDATE_TOTAL_PRICE } from '../../services/actions/index';
+import { UPDATE_CONSTRUCTOR_EMPTINESS } from '../../services/actions/order';
 import { useDrop } from "react-dnd/dist/hooks";
-import {ConstructorItem} from "../constructor-item/constructor-item.js";
+import {ConstructorItem} from "../constructor-item/constructor-item";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -41,13 +41,15 @@ function BurgerConstructor () {
   };
 
   const confirmOrder = useCallback(() =>{
-    if (localStorage.getItem("isAuth") && chosenBun) {
+    if (localStorage.getItem("isAuth") &&  Object.keys(chosenBun).length!==0) {
       const orderList = [
+        chosenBun._id,
         ingredientsList.map((ingredient) => {
           return ingredient._id;
         }),
-        Object.keys(chosenBun).length === 0 ? [] : chosenBun._id,
+        chosenBun._id
       ].flatMap((i) => i);
+      console.log(orderList)
       dispatch(createOrder(orderList));
     } else {
       navigate("/login");
