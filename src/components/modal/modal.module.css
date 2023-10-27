@@ -1,0 +1,19 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  border-radius: 40px;
+  background-color: #1C1C21;
+  border: 1px solid rgba(76, 76, 255, 0.2);
+  position: relative;
+  z-index: 20;
+  cursor: default;
+}
+
+.close_icon {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 48px;
+  right: 43px;
+  cursor: pointer;
+}

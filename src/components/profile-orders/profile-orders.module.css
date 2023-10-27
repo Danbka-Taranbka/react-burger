@@ -1,0 +1,10 @@
+.feed {
+  width: 850px;
+  height: 700px;
+  margin-right: -20vw;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  overflow-y: scroll;
+}

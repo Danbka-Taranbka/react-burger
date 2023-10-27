@@ -1,0 +1,20 @@
+.profile__menu {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.profile__link {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  color: #8585ad;
+  text-decoration: none;
+  text-align: start;
+  cursor: pointer;
+}
+
+.profile__text {
+  text-align: start;
+}
