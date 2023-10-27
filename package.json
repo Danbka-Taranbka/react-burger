@@ -2,7 +2,10 @@
   "name": "react-burger",
   "version": "0.1.0",
   "private": true,
+<<<<<<< HEAD
   "homepage": "https://Danbka-Taranbka.github.io/react-burger",
+=======
+>>>>>>> 9c59d52f84dbe1b8ea1a6808e6e6ba3e5a9e4471
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.5",
@@ -18,6 +21,7 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.7",
+    "react-router-dom": "^6.14.0",
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "redux-devtools-extension": "^2.13.9",
@@ -33,6 +37,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
+  "homepage": "./",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -52,6 +57,7 @@
     ]
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.2",
     "gh-pages": "^5.0.0"
   }
 }

@@ -1,0 +1,37 @@
+.stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: white;
+  text-decoration: none;
+  width: 580px;
+  height: 626px;
+  gap: 60px;
+}
+
+.statuses {
+  display: flex;
+  flex-direction: row;
+  gap: 36px;
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 280px;
+}
+
+.title {
+  text-align: start;
+}
+
+.order__number {
+  color: #0CC;
+}
+
+.amount {
+  text-align: start;
+  text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25), 0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
+}
