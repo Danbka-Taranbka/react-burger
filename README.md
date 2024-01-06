@@ -1,3 +1,21 @@
-On this repository you can see the development of the burger-restourant based in the middle of nowhere in our galaxy.
-Current and future funсtionality will be described here leter.
-You can see and try a website here: https://danbka-taranbka.github.io/react-burger/
+# Проект Mesto
+
+Данный проект является практическкой работой, нацеленной на применение изученных навыков.
+<p>Посмотреть проект можно по <a href="https://danbka-taranbka.github.io/react-burger/">ссылке</a>.</p>
+Статус: завершён.
+
+## Стек
+<div id="stack">
+<img width="50" src="https://github.com/devicons/devicon/blob/master/icons/react/react-original-wordmark.svg">
+<img width="50" src="https://github.com/devicons/devicon/blob/master/icons/redux/redux-original.svg">
+<img width="50" src="https://github.com/devicons/devicon/blob/master/icons/typescript/typescript-original.svg">
+</div>
+
+## Доступны следующие функции:
+<ul>
+  <li>Регистрация и авторизация пользователя</li>
+  <li>Редактирование профиля</li>
+  <li>Возможность собрать уникальный бургер (просто перетащите нужный ингредиент)</li>
+  <li>Оформление заказа</li>
+  <li>Просмотр заказов и их статусов в Личном кабинете</li>
+</ul>
