@@ -1,6 +1,7 @@
 Language <a href='#eng'>English</a>/<a href='#rus'>Russian</a>
 
-<id='eng'># Project React-burger</>
+<div id='eng'>
+# Project React-burger
 
 This project is a practical work, aimed at applying learned skills.
 <p>You can view the project <a href="https://danbka-taranbka.github.io/react-burger/">here</a>.</p>
@@ -21,8 +22,10 @@ Status: completed
   <li>Placing an order</li>
   <li>Viewing orders and their statuses in profile</li>
 </ul>
+</div>
 
-<id='rus'># Проект React-burger</>
+<div id='rus'>
+  # Проект React-burger
 
 Данный проект является практическкой работой, нацеленной на применение изученных навыков.
 <p>Посмотреть проект можно по <a href="https://danbka-taranbka.github.io/react-burger/">ссылке</a></p>
@@ -43,3 +46,4 @@ Status: completed
   <li>Оформление заказа</li>
   <li>Просмотр заказов и их статусов в Личном кабинете</li>
 </ul>
+</>
