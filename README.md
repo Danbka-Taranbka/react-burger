@@ -25,7 +25,7 @@ Language <a href='#eng'>English</a>/<a href='#rus'>Russian</a>
   </ul>
   </div>
 
-  
+  </br>
 
 <div id='rus'>
   
