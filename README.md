@@ -23,8 +23,10 @@ Language <a href='#eng'>English</a>/<a href='#rus'>Russian</a>
     <li>Placing an order</li>
     <li>Viewing orders and their statuses in profile</li>
   </ul>
-  </div>
+</div>
 
+  </br>
+  </br>
   </br>
 
 <div id='rus'>
